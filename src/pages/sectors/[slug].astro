@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import QuoteWidget from '../../components/QuoteWidget.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import sectors from '../../data/sectors.json';
+import areas from '../../data/areas.json';
+import { priceLine } from '../../lib/pricing';
+import { service, breadcrumbSchema } from '../../lib/schema';
+export function getStaticPaths() { return sectors.map((s) => ({ params: { slug: s.slug }, props: { s } })); }
+const { s } = Astro.props as { s: (typeof sectors)[number] };
+---
+<Base title={`${s.title} | IMR Services`} description={`${s.short} ${priceLine()}. Instant price online.`} schema={[service(s.title), breadcrumbSchema([{ name: 'Who we test for', href: '/sectors/' }, { name: s.name, href: `/sectors/${s.slug}/` }])]}>
+  <PageHead label="Who we test for" title={s.title.replace(' in Teesside', '')} lede={s.short} crumbs={[{ name: 'Who we test for', href: '/sectors/' }, { name: s.name }]} />
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose">
+        {s.body.map((p) => <p>{p}</p>)}
+        <h2>Typical items we test</h2>
+        <ul class="eyelets">{s.typical.map((t) => <li>{t}</li>)}</ul>
+        <h2>Across Teesside</h2>
+        <ul class="chips">{areas.slice(0, 8).map((a) => <li><a class="chip" href={`/pat-testing/${a.slug}/`}>{a.name}</a></li>)}</ul>
+      </article>
+      <div class="sticky-col"><QuoteWidget /></div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

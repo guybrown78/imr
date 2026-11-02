@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import CtaBand from '../../components/CtaBand.astro';
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const all = [{ href: '/guides/pat-testing-cost/', title: 'How much does PAT testing cost?', description: 'Real prices for Teesside, with worked examples and what affects the cost.' }, ...guides.map((g) => ({ href: `/guides/${g.id}/`, title: g.data.title, description: g.data.description }))];
+---
+<Base title="PAT Testing Guides | Costs, Law, How Often | IMR Services" description="Plain-English PAT testing guides: what it costs, how often you need it, the law, what's tested and landlord duties.">
+  <PageHead label="Guides" title="PAT testing, explained plainly." crumbs={[{ name: 'Guides' }]} />
+  <section class="section section--paper">
+    <div class="wrap">
+      <ul class="gl">
+        {all.map((g) => <li><a href={g.href}><h2>{g.title}</h2><p>{g.description}</p><span class="arrow">Read guide</span></a></li>)}
+      </ul>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .gl { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .gl a { display: block; height: 100%; padding: 1.5rem; border: 1.5px solid var(--line-strong); border-radius: var(--radius-lg); background: var(--mist); color: var(--ink); text-decoration: none; }
+  .gl a:hover { border-color: var(--ink); }
+  .gl h2 { font-size: var(--step-1); }
+  .gl p { color: var(--text-muted); font-size: 0.95rem; }
+  .gl .arrow { color: var(--forest); }
+  @media (min-width: 760px) { .gl { grid-template-columns: 1fr 1fr; } .gl li:first-child { grid-column: 1 / -1; } .gl li:first-child h2 { font-size: var(--step-3); } }
+</style>

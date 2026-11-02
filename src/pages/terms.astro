@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { pricing, priceLine, vatNote, gbp } from '../lib/pricing';
+import { site } from '../lib/site';
+---
+<Base title="Terms | IMR Services" description="Terms for PAT testing services from IMR Services.">
+  <PageHead label="Legal" title="Terms of service" crumbs={[{ name: 'Terms' }]} />
+  <section class="section section--paper">
+    <article class="wrap prose">
+      <h2 style="margin-top:0">Prices</h2>
+      <p>{priceLine()}, for premises in {pricing.coveredPostcodePrefixes.join(', ')} postcodes. {vatNote()}. The minimum charge of {gbp(pricing.minimumCharge)} applies to every visit. You pay for the number of items actually tested. Prices shown online are valid on the day you request a quote.</p>
+      <h2>Repairs</h2>
+      <p>Minor repairs, such as plugs, fuses and cord grips, are only carried out with your agreement, with parts charged at cost.</p>
+      <h2>Failed items</h2>
+      <p>Items that fail are labelled and should be taken out of use until repaired or replaced. You are responsible for acting on failed results.</p>
+      <h2>Cancellations</h2>
+      <p>Please give at least 24 hours' notice to rearrange. Contact {site.email}.</p>
+      <h2>Payment</h2>
+      <p>Payment is due within 14 days of the invoice, by bank transfer or card.</p>
+    </article>
+  </section>
+</Base>

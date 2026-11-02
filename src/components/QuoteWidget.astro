@@ -1,0 +1,259 @@
+---
+/**
+ * Instant quote "tag". Pricing comes only from src/data/pricing.json via lib/pricing.
+ * compact: a GET form that hands the count and postcode to /quote/.
+ * full: the enquiry form that posts to /api/quote.php (progressive enhancement: works without JS).
+ */
+import Icon from './Icon.astro';
+import { calcQuote, gbp, pricing, vatNote } from '../lib/pricing';
+import { phone } from '../lib/site';
+
+interface Props { full?: boolean; initial?: number; town?: string; heading?: string }
+const { full = false, initial = 25, town, heading = 'How many appliances?' } = Astro.props;
+const q = calcQuote(initial);
+const extra = Math.max(0, initial - pricing.itemsIncluded);
+const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).toUpperCase();
+---
+<form
+  class="qt"
+  data-quote
+  data-full={full ? '' : undefined}
+  data-wa={phone.whatsapp}
+  data-town={town}
+  action={full ? '/api/quote.php' : '/quote/'}
+  method={full ? 'post' : 'get'}
+  novalidate={full}
+>
+  <div class="qt__tag">
+    <span class="qt__eyelet" aria-hidden="true"></span>
+    <div class="qt__head">
+      <span class="label">Instant price</span>
+      <span class="label qt__upd">Updated {updated}</span>
+    </div>
+
+    <fieldset class="qt__count">
+      <legend class="qt__q">{heading}</legend>
+      <div class="qt__stepper">
+        <button type="button" class="qt__step" data-step="-1" aria-label="One fewer">−</button>
+        <label class="visually-hidden" for={`qn-${full ? 'f' : 'c'}`}>Number of appliances</label>
+        <input id={`qn-${full ? 'f' : 'c'}`} class="qt__n" name="n" type="number" inputmode="numeric" min="1" max="9999" value={initial} required />
+        <button type="button" class="qt__step" data-step="1" aria-label="One more">+</button>
+      </div>
+      <ul class="qt__quick" aria-label="Common amounts">
+        {pricing.exampleCounts.map((c) => <li><button type="button" data-set={c}>{c}</button></li>)}
+      </ul>
+      <p class="qt__hint">Count everything with a plug, including extension leads and chargers. A rough number is fine.</p>
+    </fieldset>
+
+    <label class="qt__field">
+      <span>Postcode <em>(optional)</em></span>
+      <input name="pc" type="text" autocomplete="postal-code" placeholder="e.g. TS18 1AB" maxlength="9" class="qt__pc" />
+    </label>
+
+    <div class="qt__result" aria-live="polite">
+      <div>
+        <span class="label">Your price</span>
+        <output class="qt__price" data-price>{q.price !== null ? gbp(q.price) : '—'}</output>
+      </div>
+      <dl class="qt__break mono" data-break>
+        <div><dt>First {pricing.itemsIncluded} items</dt><dd>{gbp(pricing.minimumCharge)}</dd></div>
+        <div data-extra-row hidden={extra === 0}><dt><span data-extra>{extra}</span> more × {gbp(pricing.perExtraItem)}</dt><dd data-extra-cost>{gbp(extra * pricing.perExtraItem)}</dd></div>
+      </dl>
+    </div>
+    <p class="qt__note mono" data-note>{vatNote()} · Tags, certificate &amp; test record included</p>
+
+    {!full && (
+      <div class="qt__actions">
+        <button class="btn btn--lg btn--block" type="submit">Book at this price <Icon name="arrow" /></button>
+        <a class="btn btn--ghost btn--block" data-wa-link href={phone.whatsapp}><Icon name="whatsapp" /> Send it on WhatsApp</a>
+      </div>
+    )}
+
+    {full && (
+      <div class="qt__details" data-details>
+        <p class="label label--rule">Your details</p>
+        <div class="qt__grid">
+          <label class="qt__field"><span>Your name</span><input name="name" autocomplete="name" required maxlength="80" /></label>
+          <label class="qt__field"><span>Business <em>(optional)</em></span><input name="business" autocomplete="organization" maxlength="120" /></label>
+          <label class="qt__field"><span>Mobile or phone</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" /></label>
+          <label class="qt__field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="120" /></label>
+          <label class="qt__field qt__wide"><span>When would suit?</span>
+            <select name="when">
+              <option>As soon as possible</option>
+              <option>Within the next 2 weeks</option>
+              <option>Within the month</option>
+              <option>Out of hours / weekend</option>
+              <option>Just getting a price for now</option>
+            </select>
+          </label>
+          <label class="qt__field qt__wide"><span>Anything we should know? <em>(optional)</em></span><textarea name="message" rows="3" maxlength="1500" placeholder="Site access, parking, number of floors, 110V kit…"></textarea></label>
+        </div>
+        <div class="qt__hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <input type="hidden" name="ts" value="" />
+        <input type="hidden" name="source" value={town ? `town:${town}` : 'quote'} />
+        <p class="qt__error" data-error role="alert" hidden></p>
+        <button class="btn btn--lg btn--block" type="submit" data-submit>Send my booking request <Icon name="arrow" /></button>
+        <p class="qt__small">We'll reply the same working day to agree a date. We only use your details to arrange this job. See our <a href="/privacy/">privacy notice</a>.</p>
+      </div>
+    )}
+  </div>
+
+  {full && (
+    <div class="qt__done" data-done hidden tabindex="-1">
+      <span class="stamp stamp--pass">Received</span>
+      <h2>Thanks, that's with us.</h2>
+      <p>Your reference is <strong class="mono" data-ref>—</strong>. We'll be in touch the same working day to agree a date. A copy has been sent to your email.</p>
+      <div class="qt__done-actions">
+        <a class="btn" data-wa-link href={phone.whatsapp}><Icon name="whatsapp" /> Chat on WhatsApp now</a>
+        <a class="btn btn--ghost" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
+      </div>
+      <div class="qt__soon">
+        <Icon name="calendar" />
+        <p><strong>Online booking is coming soon.</strong> You'll be able to pick your own slot here. For now, we'll call you to arrange a time.</p>
+      </div>
+    </div>
+  )}
+</form>
+
+<script>
+  import { calcQuote, gbp, pricing, vatNote } from '../lib/pricing';
+
+  document.querySelectorAll<HTMLFormElement>('form[data-quote]').forEach((form) => {
+    const n = form.querySelector<HTMLInputElement>('.qt__n')!;
+    const pc = form.querySelector<HTMLInputElement>('.qt__pc')!;
+    const out = form.querySelector('[data-price]')!;
+    const note = form.querySelector('[data-note]')!;
+    const extraRow = form.querySelector<HTMLElement>('[data-extra-row]')!;
+    const full = form.hasAttribute('data-full');
+    const baseNote = note.textContent;
+
+    // Hand-off from the compact widget: /quote/?n=25&pc=TS18
+    const params = new URLSearchParams(location.search);
+    if (full && params.get('n')) n.value = String(Math.max(1, parseInt(params.get('n')!, 10) || 1));
+    if (full && params.get('pc')) pc.value = params.get('pc')!.slice(0, 9);
+    const ts = form.querySelector<HTMLInputElement>('input[name=ts]');
+    if (ts) ts.value = String(Date.now());
+
+    const waText = (q: ReturnType<typeof calcQuote>) => {
+      const where = pc.value.trim() ? ` in ${pc.value.trim().toUpperCase()}` : form.dataset.town ? ` in ${form.dataset.town}` : '';
+      const price = q.price !== null && q.status === 'ok' ? ` Your site says ${gbp(q.price)}.` : '';
+      return `Hi IMR, I'd like PAT testing for ${q.count || 'some'} appliances${where}.${price}`;
+    };
+
+    const render = () => {
+      const q = calcQuote(Number(n.value), pc.value);
+      out.textContent = q.price !== null ? gbp(q.price) : q.status === 'large' ? 'Site plan' : '—';
+      out.toggleAttribute('data-estimate', q.status === 'outside');
+      extraRow.hidden = q.extraItems === 0 || q.price === null;
+      form.querySelector('[data-extra]')!.textContent = String(q.extraItems);
+      form.querySelector('[data-extra-cost]')!.textContent = gbp(q.extraItems * pricing.perExtraItem);
+      note.textContent = q.status === 'outside' ? pricing.outsideAreaNote : q.status === 'large' ? pricing.largeJobNote : baseNote;
+      note.classList.toggle('is-warn', q.status === 'outside' || q.status === 'large');
+      const wa = `${form.dataset.wa}?text=${encodeURIComponent(waText(q))}`;
+      form.querySelectorAll<HTMLAnchorElement>('[data-wa-link]').forEach((a) => (a.href = wa));
+    };
+
+    form.querySelectorAll<HTMLButtonElement>('[data-step]').forEach((b) =>
+      b.addEventListener('click', () => {
+        n.value = String(Math.max(1, (parseInt(n.value, 10) || 0) + Number(b.dataset.step)));
+        render();
+      }),
+    );
+    form.querySelectorAll<HTMLButtonElement>('[data-set]').forEach((b) =>
+      b.addEventListener('click', () => { n.value = b.dataset.set!; render(); }),
+    );
+    n.addEventListener('input', render);
+    pc.addEventListener('input', render);
+    render();
+
+    if (!full) return;
+    const err = form.querySelector<HTMLElement>('[data-error]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      const bad = [...form.querySelectorAll<HTMLInputElement>('input[required]')].find((i) => !i.checkValidity());
+      if (bad) {
+        err.textContent = bad.type === 'email' ? 'Please check your email address.' : 'Please fill in your name, phone and email.';
+        err.hidden = false;
+        bad.focus();
+        return;
+      }
+      submit.disabled = true;
+      submit.dataset.label = submit.innerHTML;
+      submit.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong.');
+        form.querySelector('[data-ref]')!.textContent = data.ref;
+        form.querySelector<HTMLElement>('.qt__tag')!.hidden = true;
+        const done = form.querySelector<HTMLElement>('[data-done]')!;
+        done.hidden = false;
+        done.focus();
+        done.scrollIntoView({ block: 'start' });
+      } catch (x) {
+        err.textContent = `${(x as Error).message} You can also call or WhatsApp us.`;
+        err.hidden = false;
+        submit.disabled = false;
+        submit.innerHTML = submit.dataset.label!;
+      }
+    });
+  });
+</script>
+
+<style>
+  .qt { --cut: 26px; filter: drop-shadow(0 22px 30px rgba(11, 31, 22, 0.18)) drop-shadow(0 2px 2px rgba(11, 31, 22, 0.06)); }
+  .qt__tag, .qt__done {
+    position: relative; background: var(--paper); color: var(--ink);
+    padding: calc(var(--cut) + 1.25rem) clamp(1.1rem, 4vw, 1.75rem) clamp(1.25rem, 4vw, 1.75rem);
+    clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%, 0 var(--cut));
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  .qt__eyelet { position: absolute; top: 14px; left: 50%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--mist); box-shadow: 0 0 0 5px var(--forest); }
+  .qt__head { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 0.9rem; margin-bottom: 1rem; border-bottom: 1.5px dashed var(--line-strong); }
+  .qt__upd { color: var(--text-muted); }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .qt__q { font-size: var(--step-1); font-weight: 700; letter-spacing: -0.015em; padding: 0; margin-bottom: 0.75rem; }
+  .qt__stepper { display: grid; grid-template-columns: 56px 1fr 56px; border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
+  .qt__step { border: 0; background: var(--mist); font: 500 1.6rem/1 var(--mono); color: var(--ink); cursor: pointer; }
+  .qt__step:hover { background: var(--mint); }
+  .qt__n { width: 100%; min-width: 0; border: 0; border-inline: 2px solid var(--ink); text-align: center; font: 600 2rem/1 var(--mono); padding: 0.6rem 0; color: var(--ink); background: #fff; -moz-appearance: textfield; }
+  .qt__n::-webkit-outer-spin-button, .qt__n::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .qt__n:focus { outline: none; background: var(--mist); }
+  .qt__quick { display: flex; gap: 0.4rem; list-style: none; padding: 0; margin: 0.65rem 0 0.4rem; flex-wrap: wrap; }
+  .qt__quick button { font: 500 0.85rem/1 var(--mono); padding: 0.55rem 0.7rem; min-height: 36px; border: 1.5px solid var(--line-strong); border-radius: 6px; background: #fff; color: var(--ink); cursor: pointer; }
+  .qt__quick button:hover { border-color: var(--forest); background: var(--mint); }
+  .qt__hint { font-size: 0.85rem; color: var(--text-muted); margin: 0.25rem 0 1rem; }
+  .qt__field { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; }
+  .qt__field em { font-style: normal; font-weight: 400; color: var(--text-muted); }
+  .qt__field input, .qt__field select, .qt__field textarea {
+    font: 400 1rem/1.4 var(--display); color: var(--ink); background: #fff; width: 100%;
+    border: 1.5px solid var(--line-strong); border-radius: 8px; padding: 0.75rem 0.85rem; min-height: 48px;
+  }
+  .qt__field input:focus, .qt__field select:focus, .qt__field textarea:focus { outline: none; border-color: var(--forest); box-shadow: 0 0 0 3px var(--mint); }
+  .qt__pc { text-transform: uppercase; font-family: var(--mono) !important; }
+  .qt__pc::placeholder { text-transform: none; }
+  .qt__result { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1.5px dashed var(--line-strong); }
+  .qt__price { display: block; font-size: clamp(2.6rem, 2rem + 3vw, 3.4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--forest); font-variant-numeric: tabular-nums; }
+  .qt__price[data-estimate]::after { content: ' est.'; font-size: 0.35em; font-weight: 600; letter-spacing: 0; color: var(--text-muted); }
+  .qt__break { margin: 0; font-size: 0.78rem; color: var(--text-muted); text-align: right; display: grid; gap: 0.2rem; }
+  .qt__break div { display: flex; gap: 0.75rem; justify-content: flex-end; }
+  .qt__break dd { margin: 0; min-width: 3.5em; color: var(--ink); font-weight: 500; }
+  .qt__note { font-size: 0.74rem; color: var(--text-muted); margin: 0.85rem 0 1.1rem; letter-spacing: 0.02em; }
+  .qt__note.is-warn { color: var(--ink); background: var(--mint); padding: 0.6rem 0.75rem; border-radius: 6px; font-family: var(--display); font-size: 0.9rem; letter-spacing: 0; }
+  .qt__actions { display: grid; gap: 0.6rem; }
+  .qt__details { margin-top: 1.5rem; }
+  .qt__grid { display: grid; gap: 0.9rem; margin: 1rem 0 1.25rem; }
+  @media (min-width: 560px) { .qt__grid { grid-template-columns: 1fr 1fr; } .qt__wide { grid-column: 1 / -1; } }
+  .qt__hp { position: absolute; left: -9999px; }
+  .qt__error { background: #fdecea; color: var(--fail); padding: 0.7rem 0.85rem; border-radius: 8px; font-weight: 600; font-size: 0.92rem; }
+  .qt__small { font-size: 0.82rem; color: var(--text-muted); margin: 0.85rem 0 0; }
+  .qt__done h2 { font-size: var(--step-3); margin-top: 1rem; }
+  .qt__done:focus { outline: none; }
+  .qt__done-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.25rem 0; }
+  .qt__soon { display: flex; gap: 0.85rem; align-items: flex-start; padding: 1rem; border: 1.5px dashed var(--line-strong); border-radius: var(--radius); background: var(--mist); }
+  .qt__soon :global(svg) { width: 26px; flex: none; color: var(--forest); }
+  .qt__soon p { margin: 0; font-size: 0.92rem; }
+</style>

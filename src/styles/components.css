@@ -1,0 +1,65 @@
+/* Buttons */
+.btn {
+  --bg: var(--forest); --fg: #fff; --bd: var(--forest);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  min-height: 48px; padding: 0.7rem 1.25rem;
+  font: 650 1rem/1.1 var(--display); letter-spacing: -0.005em;
+  color: var(--fg); background: var(--bg); border: 2px solid var(--bd); border-radius: var(--radius);
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.btn:hover { --bg: var(--ink); --bd: var(--ink); color: #fff; text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn--signal { --bg: var(--signal); --fg: var(--ink); --bd: var(--signal); }
+.btn--signal:hover { --bg: var(--mint); --bd: var(--mint); color: var(--ink); }
+.btn--ghost { --bg: transparent; --fg: var(--ink); --bd: var(--line-strong); }
+.btn--ghost:hover { --bg: var(--paper); --bd: var(--ink); color: var(--ink); }
+.on-dark .btn--ghost { --fg: #fff; --bd: rgba(207, 247, 224, 0.4); }
+.on-dark .btn--ghost:hover { --bg: rgba(207, 247, 224, 0.08); --bd: var(--mint); color: #fff; }
+.btn--lg { min-height: 56px; padding-inline: 1.5rem; font-size: 1.075rem; }
+.btn--block { width: 100%; }
+
+/* Eyelet bullet list — the tag's hole as a list marker */
+.eyelets { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.55rem; }
+.eyelets li { position: relative; padding-left: 1.6rem; }
+.eyelets li::before {
+  content: ''; position: absolute; left: 0; top: 0.42em; width: 0.8rem; height: 0.8rem; border-radius: 50%;
+  border: 3px solid var(--forest); background: var(--paper);
+}
+.on-dark .eyelets li::before { border-color: var(--signal); background: transparent; }
+
+/* PASS stamp */
+.stamp {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font: 600 0.72rem/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.35rem 0.55rem 0.3rem; border: 1.5px solid currentColor; border-radius: 4px; color: var(--forest);
+}
+.stamp--pass { background: var(--mint); }
+.stamp--fail { color: var(--fail); background: #fdecea; }
+
+/* Arrow link */
+.arrow { font-weight: 650; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4em; }
+.arrow::after { content: '→'; transition: transform 0.15s; }
+.arrow:hover::after { transform: translateX(3px); }
+
+/* Chips (towns, quick counts) */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0; }
+.chip {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 40px; padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  border: 1.5px solid var(--line-strong); border-radius: 6px 999px 999px 6px; background: var(--paper);
+  color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+}
+.chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 2px solid var(--forest); }
+a.chip:hover { border-color: var(--forest); background: var(--mint); color: var(--ink); text-decoration: none; }
+
+/* Breadcrumb */
+.crumbs { font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 1.25rem; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0; margin: 0; }
+.crumbs li + li::before { content: '/'; margin-right: 0.35rem; opacity: 0.5; }
+.crumbs a { color: inherit; }
+
+/* Two-col split used on inner pages */
+.split { display: grid; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+@media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); } }
+.sticky-col { position: sticky; top: calc(var(--header-h) + 1.25rem); }

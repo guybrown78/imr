@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import QuoteWidget from '../../components/QuoteWidget.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import FAQ from '../../components/FAQ.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import Icon from '../../components/Icon.astro';
+import areas from '../../data/areas.json';
+import sectors from '../../data/sectors.json';
+import { priceLine, pricing, gbp, inCoveredArea, vatNote } from '../../lib/pricing';
+import { site, phone, waLink } from '../../lib/site';
+import { faqSchema, service, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { town: area.slug }, props: { area } }));
+}
+type Area = (typeof areas)[number];
+const { area } = Astro.props as { area: Area };
+const covered = area.postcodes.every((p) => inCoveredArea(p + '1'));
+const neighbours = area.neighbours.map((s) => areas.find((a) => a.slug === s)).filter(Boolean) as Area[];
+const path = `/pat-testing/${area.slug}/`;
+const faqs = [
+  { q: `How much is PAT testing in ${area.name}?`, a: covered ? `${priceLine()}, the same as everywhere in Teesside. ${vatNote()}.` : `${area.name} is just outside our TS postcode pricing. Use the calculator for an estimate and we'll confirm by message, usually at the same rate.` },
+  ...area.faqs,
+];
+const title = `PAT Testing ${area.name} | ${covered ? `From ${gbp(pricing.minimumCharge)}, Instant Price` : 'Local PAT Tester'} | IMR Services`;
+const description = `PAT testing in ${area.name} (${area.postcodes.join(', ')}). ${covered ? priceLine() + '.' : 'Local, qualified and insured.'} Get an instant price online and book in minutes.`;
+---
+<Base
+  {title}
+  {description}
+  schema={[service(`PAT testing in ${area.name}`, area.name, site.url + path), faqSchema(faqs), breadcrumbSchema([{ name: 'PAT testing', href: '/pat-testing/' }, { name: area.name, href: path }])]}
+>
+  <section class="th">
+    <div class="wrap">
+      <Crumbs items={[{ name: 'PAT testing', href: '/pat-testing/' }, { name: area.name }]} />
+      <div class="th__in">
+        <div>
+          <p class="label">{area.postcodes.join(' · ')}</p>
+          <h1>PAT testing in {area.name}</h1>
+          <p class="lede">{area.lede}</p>
+          <p class="th__price"><strong>{covered ? priceLine() : 'Priced on request'}</strong>{covered && <span class="muted">, the same price across {area.postcodes.join(', ')}.</span>}</p>
+          <TrustStrip />
+        </div>
+        <div class="th__quote"><QuoteWidget town={area.name} heading={`How many appliances in ${area.name}?`} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose">
+        <p class="label label--rule">Local PAT testing</p>
+        <h2>Your local PAT tester in {area.name}</h2>
+        {area.body.map((p) => <p>{p}</p>)}
+        <h3>Where we test in {area.name}</h3>
+        <ul class="chips" style="margin-top:0.75rem">
+          {area.places.map((p) => <li><span class="chip">{p}</span></li>)}
+        </ul>
+      </article>
+      <aside class="th__aside">
+        <div class="th__card">
+          <p class="label">What's included</p>
+          <ul class="eyelets">
+            <li>Visual inspection and electrical test of every item</li>
+            <li>Dated pass/fail tag on every item</li>
+            <li>Certificate and test record</li>
+            <li>Minor fixes (plugs, fuses) on the day</li>
+          </ul>
+          <a class="btn btn--block" href={waLink(`Hi IMR, I'd like a price for PAT testing in ${area.name}.`)}><Icon name="whatsapp" /> WhatsApp a question</a>
+          <a class="btn btn--ghost btn--block" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {covered && (
+    <section class="section">
+      <div class="wrap split">
+        <div>
+          <p class="label label--rule">{area.name} prices</p>
+          <h2>What PAT testing costs in {area.name}</h2>
+          <p class="lede">No call-out fee and no travel charge within {area.postcodes.join(', ')}. The price you see is the price you pay.</p>
+          <p><a class="arrow" href="/prices/">How our pricing works</a></p>
+        </div>
+        <PriceTable />
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper">
+    <div class="wrap split">
+      <div class="sticky-col">
+        <p class="label label--rule">{area.name} FAQs</p>
+        <h2>PAT testing in {area.name}: your questions</h2>
+      </div>
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="wrap th__links">
+      <div>
+        <p class="label">Nearby</p>
+        <ul class="chips">{neighbours.map((n) => <li><a class="chip" href={`/pat-testing/${n.slug}/`}>PAT testing {n.name}</a></li>)}</ul>
+      </div>
+      <div>
+        <p class="label">In {area.name} we test for</p>
+        <ul class="chips">{sectors.map((s) => <li><a class="chip" href={`/sectors/${s.slug}/`}>{s.name}</a></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading={`Book PAT testing in ${area.name}.`} place={area.name} />
+</Base>
+
+<style>
+  .th { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem); }
+  .th__in { display: grid; gap: 2.5rem; align-items: start; }
+  h1 { max-width: 16ch; }
+  .th__price { font-size: var(--step-1); margin: 1.25rem 0 1.5rem; max-width: 34ch; line-height: 1.4; }
+  .th__quote { max-width: 30rem; width: 100%; justify-self: center; }
+  @media (min-width: 960px) { .th__in { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } .th__quote { justify-self: end; } }
+  .prose h3 { margin-top: 2rem; }
+  .th__card { position: sticky; top: calc(var(--header-h) + 1.25rem); display: grid; gap: 0.75rem; padding: 1.5rem; border: 1.5px solid var(--ink); border-radius: var(--radius-lg); background: var(--mist); }
+  .th__card .eyelets { margin: 0.5rem 0 0.75rem; }
+  .th__links { display: grid; gap: 2rem; }
+  .th__links .label { margin-bottom: 0.75rem; }
+  @media (min-width: 900px) { .th__links { grid-template-columns: 1fr 1fr; } }
+</style>

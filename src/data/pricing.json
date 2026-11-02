@@ -1,0 +1,14 @@
+{
+  "_readme": "Single source of truth for pricing. Every price on the site, the calculator, the JSON-LD and the PHP quote API read from this file. Edit, commit, push to main.",
+  "currency": "GBP",
+  "minimumCharge": 40,
+  "itemsIncluded": 10,
+  "perExtraItem": 1,
+  "vatRegistered": false,
+  "coveredPostcodePrefixes": ["TS"],
+  "maxInstantItems": 2000,
+  "outsideAreaNote": "You're just outside our TS postcode pricing. We still cover you, but we'll confirm the price by message first.",
+  "largeJobNote": "For more than 2,000 appliances or multi-site work we'll put together a site plan and a fixed price.",
+  "exampleCounts": [10, 25, 50, 100, 250],
+  "lastUpdated": "2026-10-30"
+}

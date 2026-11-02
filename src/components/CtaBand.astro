@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { phone, waLink } from '../lib/site';
+import { priceLine } from '../lib/pricing';
+interface Props { heading?: string; place?: string }
+const { heading = 'Get your price in ten seconds.', place } = Astro.props;
+---
+<section class="cta section--forest on-dark">
+  <div class="wrap cta__in">
+    <div>
+      <p class="label">{place ? `PAT testing · ${place}` : 'No call-out surprises'}</p>
+      <h2>{heading}</h2>
+      <p class="cta__line">{priceLine()}.</p>
+    </div>
+    <div class="cta__btns">
+      <a class="btn btn--signal btn--lg" href="/quote/">Get an instant price <Icon name="arrow" /></a>
+      <a class="btn btn--ghost btn--lg" href={waLink(`Hi IMR, I'd like a price for PAT testing${place ? ` in ${place}` : ''}.`)}><Icon name="whatsapp" /> WhatsApp</a>
+      <a class="btn btn--ghost btn--lg" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .cta { padding-block: clamp(3rem, 7vw, 5.5rem); position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; right: -60px; top: 50%; width: 220px; height: 220px; margin-top: -110px; border-radius: 50%; border: 34px solid rgba(62, 224, 143, 0.14); }
+  .cta__in { position: relative; display: grid; gap: 2rem; align-items: end; }
+  h2 { font-size: var(--step-4); max-width: 14ch; margin-bottom: 0.4em; }
+  .cta__line { color: var(--mint); font-size: var(--step-1); margin: 0; }
+  .cta__btns { display: grid; gap: 0.65rem; }
+  @media (min-width: 900px) { .cta__in { grid-template-columns: 1.3fr 1fr; } }
+</style>

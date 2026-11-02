@@ -1,0 +1,46 @@
+---
+/* Cost guide is an .astro page (not markdown) so every figure comes from pricing.json. */
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import QuoteWidget from '../../components/QuoteWidget.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { pricing, gbp, priceFor, priceLine, vatNote } from '../../lib/pricing';
+import { breadcrumbSchema, faqSchema } from '../../lib/schema';
+const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+const faqs = [{ q: 'How much does PAT testing cost per item?', a: `With us, ${priceLine()}. Across the UK most firms charge between £1 and £3 per item, plus a minimum or call-out charge.` }];
+---
+<Base title={`How Much Does PAT Testing Cost? [${updated}] Teesside Prices`} description={`PAT testing costs explained, updated ${updated}. ${priceLine()}. Worked examples for shops, offices, landlords and schools.`} schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Guides', href: '/guides/' }, { name: 'PAT testing cost', href: '/guides/pat-testing-cost/' }])]}>
+  <PageHead label={`Guide · Updated ${updated}`} title="How much does PAT testing cost?" lede={`Short answer: ${priceLine()}. ${vatNote()}.`} crumbs={[{ name: 'Guides', href: '/guides/' }, { name: 'PAT testing cost' }]} />
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose">
+        <h2 style="margin-top:0">How PAT testing is usually priced</h2>
+        <p>Across the UK, most PAT testers charge one of three ways: <strong>per item</strong> (typically £1 to £3), <strong>per hour</strong> or <strong>per day</strong>. Almost all add a minimum or call-out charge, which is why five items can cost almost the same as fifteen.</p>
+        <p>We keep it to one rule: <strong>{gbp(pricing.minimumCharge)} covers the visit and your first {pricing.itemsIncluded} items, then {gbp(pricing.perExtraItem)} for each item after that.</strong> There's no separate call-out fee and no travel charge within TS postcodes.</p>
+        <h2>Typical costs</h2>
+        <table>
+          <thead><tr><th>Premises</th><th>Typical items</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Rental flat or house</td><td>8–15</td><td>{gbp(priceFor(8))}–{gbp(priceFor(15))}</td></tr>
+            <tr><td>Small shop or salon</td><td>10–25</td><td>{gbp(priceFor(10))}–{gbp(priceFor(25))}</td></tr>
+            <tr><td>Café or takeaway</td><td>20–40</td><td>{gbp(priceFor(20))}–{gbp(priceFor(40))}</td></tr>
+            <tr><td>Office, 10 staff</td><td>50–80</td><td>{gbp(priceFor(50))}–{gbp(priceFor(80))}</td></tr>
+            <tr><td>Primary school</td><td>300–600</td><td>{gbp(priceFor(300))}–{gbp(priceFor(600))}</td></tr>
+          </tbody>
+        </table>
+        <h2>What affects the price?</h2>
+        <ul>
+          <li><strong>Number of items.</strong> This is the main factor. Remember that extension leads and IEC leads count separately.</li>
+          <li><strong>Access.</strong> Items behind furniture or in ceilings take longer, but with us the price stays the same.</li>
+          <li><strong>Repairs.</strong> Replacement plugs and fuses are charged at cost, only with your OK.</li>
+          <li><strong>Location.</strong> Outside TS postcodes, we confirm the price first.</li>
+        </ul>
+        <h2>Our full price list</h2>
+        <PriceTable />
+      </article>
+      <div class="sticky-col"><QuoteWidget /></div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

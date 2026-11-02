@@ -1,0 +1,60 @@
+---
+/** Illustrative phone view of a scanned asset tag. It's a product preview, not real client data. */
+const { preview = false } = Astro.props as { preview?: boolean };
+const today = new Date();
+const next = new Date(today); next.setFullYear(today.getFullYear() + 1);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+<figure class="ac" aria-label="Example: what you see when you scan a tag">
+  {preview && <span class="ac__badge mono">Preview · coming soon</span>}
+  <div class="ac__phone">
+    <div class="ac__bar mono"><span>imrservices.net/t/</span><span>TS18-0142</span></div>
+    <div class="ac__body">
+      <div class="ac__row">
+        <span class="label">Asset</span>
+        <span class="stamp stamp--pass">✓ Pass</span>
+      </div>
+      <p class="ac__id mono">TS18-0142</p>
+      <p class="ac__name">Kettle · Staff kitchen, 1st floor</p>
+      <dl class="ac__dl mono">
+        <div><dt>Class</dt><dd>I</dd></div>
+        <div><dt>Earth</dt><dd>0.08 Ω</dd></div>
+        <div><dt>Insulation</dt><dd>&gt;299 MΩ</dd></div>
+        <div><dt>Tested</dt><dd>{fmt(today)}</dd></div>
+        <div><dt>Next due</dt><dd>{fmt(next)}</dd></div>
+      </dl>
+      <span class="ac__report">Report a problem with this item</span>
+    </div>
+  </div>
+  <div class="ac__tag" aria-hidden="true">
+    <span class="ac__eye"></span>
+    <svg viewBox="0 0 21 21" class="ac__qr">
+      <path fill="currentColor" d="M0 0h7v7H0zM1 1v5h5V1zM2 2h3v3H2zM14 0h7v7h-7zM15 1v5h5V1zM16 2h3v3h-3zM0 14h7v7H0zM1 15v5h5v-5zM2 16h3v3H2zM9 0h1v2H9zM11 1h2v1h-2zM8 3h2v2H8zM11 4h1v3h-1zM9 6h1v2H9zM0 8h2v1H0zM3 9h3v1H3zM7 8h2v2H7zM10 9h3v1h-3zM14 8h2v2h-2zM17 9h4v1h-4zM8 11h2v2H8zM11 11h1v3h-1zM13 12h3v1h-3zM17 11h1v3h-1zM19 12h2v2h-2zM9 15h2v2H9zM12 15h2v1h-2zM15 15h1v2h-1zM8 18h3v1H8zM12 18h1v3h-1zM14 17h2v2h-2zM17 16h2v1h-2zM18 18h3v1h-3zM15 20h3v1h-3zM20 15h1v2h-1z"/>
+    </svg>
+    <span class="mono ac__tagtxt">PAT<br/>TESTED<br/><b>TS18-0142</b></span>
+  </div>
+  <figcaption class="visually-hidden">Example of the record you see when you scan an IMR test tag</figcaption>
+</figure>
+<style>
+  .ac { margin: 0; position: relative; max-width: 22rem; justify-self: center; width: 100%; }
+  .ac__phone { background: var(--paper); color: var(--ink); border-radius: 30px; padding: 10px; box-shadow: 0 0 0 1px rgba(207, 247, 224, 0.2), 0 40px 60px -30px rgba(0, 0, 0, 0.6); }
+  .ac__bar { display: flex; justify-content: center; font-size: 0.68rem; color: var(--text-muted); background: var(--mist); border-radius: 22px 22px 6px 6px; padding: 0.7rem 0.5rem; }
+  .ac__bar span:last-child { color: var(--ink); font-weight: 600; }
+  .ac__body { padding: 1.25rem 1rem 1rem; }
+  .ac__row { display: flex; justify-content: space-between; align-items: center; }
+  .ac__row .label { color: var(--forest); }
+  .ac__id { font-size: 1.6rem; font-weight: 600; margin: 0.6rem 0 0; letter-spacing: -0.01em; }
+  .ac__name { color: var(--text-muted); margin: 0 0 1rem; font-size: 0.95rem; }
+  .ac__dl { margin: 0; font-size: 0.8rem; border-top: 1.5px dashed var(--line-strong); }
+  .ac__dl div { display: flex; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid var(--line); }
+  .ac__dl dt { color: var(--text-muted); }
+  .ac__dl dd { margin: 0; font-weight: 500; }
+  .ac__report { display: block; margin-top: 1rem; text-align: center; font-size: 0.85rem; font-weight: 600; padding: 0.7rem; border: 1.5px solid var(--line-strong); border-radius: 10px; }
+  .ac__tag { position: absolute; left: -1.5rem; bottom: -2.6rem; display: flex; align-items: center; gap: 0.6rem; background: var(--signal); color: var(--ink); padding: 0.6rem 0.8rem 0.6rem 1.6rem; border-radius: 0 8px 8px 0; clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 70%, 0 30%); transform: rotate(-6deg); box-shadow: 0 10px 20px rgba(0,0,0,.3); }
+  .ac__eye { position: absolute; left: 7px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--ink); }
+  .ac__qr { width: 46px; height: 46px; background: #fff; padding: 3px; border-radius: 3px; }
+  .ac__tagtxt { font-size: 0.62rem; line-height: 1.25; letter-spacing: 0.12em; }
+  .ac__tagtxt b { letter-spacing: 0.02em; font-weight: 600; }
+  .ac__badge { position: absolute; top: -0.85rem; right: 1rem; z-index: 1; background: var(--signal); color: var(--ink); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.7rem; border-radius: 999px; }
+  @media (max-width: 420px) { .ac__tag { left: -0.25rem; } }
+</style>

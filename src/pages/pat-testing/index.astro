@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import QuoteWidget from '../../components/QuoteWidget.astro';
+import FAQ from '../../components/FAQ.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import areas from '../../data/areas.json';
+import sectors from '../../data/sectors.json';
+import { priceLine, pricing, gbp } from '../../lib/pricing';
+import { site } from '../../lib/site';
+import { service, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+const faqs = [
+  { q: 'What does PAT stand for?', a: 'Portable Appliance Testing. Officially it is now called in-service inspection and testing of electrical equipment, but everyone still says PAT testing.' },
+  { q: 'What counts as a portable appliance?', a: 'Anything that plugs into a socket, from kettles, PCs, chargers and heaters to power tools and extension leads. Hard-wired equipment is covered by a fixed wiring inspection (EICR) instead.' },
+  { q: 'Who is qualified to PAT test?', a: 'A competent person with the right training and calibrated equipment. Our testers hold City & Guilds 2377 and test to the IET Code of Practice.' },
+  { q: 'How much does it cost?', a: `${priceLine()}. Try the calculator for your exact price.` },
+];
+---
+<Base
+  title={`PAT Testing | What It Is, How Often & Prices from ${gbp(pricing.minimumCharge)} | IMR Services`}
+  description={`PAT testing explained: what's tested, the law, how often, and what it costs. Local PAT testing across Teesside. ${priceLine()}.`}
+  schema={[service('PAT testing'), faqSchema(faqs), breadcrumbSchema([{ name: 'PAT testing', href: '/pat-testing/' }])]}
+>
+  <PageHead label="Portable appliance testing" title="PAT testing, done properly and priced up front." lede="We inspect, test and tag every plug-in item on your premises, then give you a certificate and test record you can show anyone who asks." crumbs={[{ name: 'PAT testing' }]} />
+
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose">
+        <h2 style="margin-top:0">What is PAT testing?</h2>
+        <p>PAT testing is a routine check that your electrical equipment is safe to use. Each item gets a formal visual inspection, where most faults are found, and then electrical tests for earth continuity, insulation resistance and, where appropriate, leakage.</p>
+        <p>Every item is tagged with a pass or fail result and the test date, and recorded. That record is your proof to insurers, landlords, licensing officers and the HSE that you're keeping equipment safe.</p>
+        <h2>Is it a legal requirement?</h2>
+        <p>The Electricity at Work Regulations 1989 require employers to maintain electrical equipment so it doesn't cause danger. The law doesn't name PAT testing, but testing with records is the recognised way to show you've done it. <a href="/guides/legal-requirement/">Read the full guide</a>.</p>
+        <h2>How often?</h2>
+        <p>It depends on the environment: every 3 months for construction kit, 6 to 12 months for kitchens and workshops, and longer for low-risk offices. <a href="/guides/how-often/">See the recommended intervals</a>.</p>
+        <h2>What happens on the day</h2>
+        <ol>
+          <li>We agree a time that suits, including before opening, after close or weekends.</li>
+          <li>We work room by room, unplugging each item for a minute or two.</li>
+          <li>Each item is tagged with an ID and result. Failures are labelled and explained.</li>
+          <li>You get your certificate and test record.</li>
+        </ol>
+      </article>
+      <div class="sticky-col"><QuoteWidget /></div>
+    </div>
+  </section>
+
+  <section class="section" id="areas">
+    <div class="wrap">
+      <p class="label label--rule">Areas we cover</p>
+      <h2>PAT testing across Teesside.</h2>
+      <ul class="towns">
+        {areas.map((a) => (
+          <li><a href={`/pat-testing/${a.slug}/`}><span>{a.name}</span><span class="mono">{a.postcodes.join(' ')}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap split">
+      <div>
+        <p class="label label--rule">Sectors</p>
+        <h2>Who we test for</h2>
+        <ul class="chips" style="margin-top:1rem">{sectors.map((s) => <li><a class="chip" href={`/sectors/${s.slug}/`}>{s.name}</a></li>)}</ul>
+      </div>
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+<style>
+  .towns { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; border-top: 1.5px solid var(--ink); }
+  .towns a { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0.25rem; border-bottom: 1px solid var(--line-strong); color: var(--ink); text-decoration: none; font-weight: 650; font-size: var(--step-1); }
+  .towns a:hover { background: var(--paper); padding-inline: 0.75rem; }
+  .towns .mono { font-size: 0.78rem; font-weight: 500; color: var(--text-muted); align-self: center; text-align: right; }
+  @media (min-width: 760px) { .towns { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
+  @media (min-width: 1100px) { .towns { grid-template-columns: 1fr 1fr 1fr; } }
+</style>

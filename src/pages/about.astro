@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, yearsTrading } from '../lib/site';
+---
+<Base title={`About IMR Services | Teesside PAT Testing Since ${site.foundedYear}`} description={`IMR Services has been PAT testing across Teesside since ${site.foundedYear}. Qualified, insured and priced up front.`}>
+  <PageHead label="About us" title="Teesside's PAT testers, with prices up front." lede={`IMR Services has been testing across Teesside for ${yearsTrading()} years. We're keeping what worked, like fair prices and turning up when we say we will, and making it easier to book.`} crumbs={[{ name: 'About' }]} />
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose">
+        <h2 style="margin-top:0">What we believe</h2>
+        <p><strong>Prices should be public.</strong> You shouldn't have to ring round for a number. Ours is on every page, and it's the same for everyone in a TS postcode.</p>
+        <p><strong>Records should be useful.</strong> When an inspector or insurer asks, you should be able to show what was tested and when. We're building digital records with a QR code on every tag to make that even quicker.</p>
+        <p><strong>Testing shouldn't stop your business.</strong> We work before opening, after close and at weekends, and we unplug things for minutes, not hours.</p>
+        <h2>Credentials</h2>
+        <ul class="eyelets">{site.credentials.map((c) => <li>{c}</li>)}</ul>
+      </article>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

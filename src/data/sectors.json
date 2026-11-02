@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "offices",
+    "name": "Offices",
+    "title": "PAT Testing for Offices in Teesside",
+    "short": "IT, kitchens and extension leads, tested floor by floor without stopping work.",
+    "body": [
+      "A typical office has far more items than people expect. Every monitor, PC, charger, kettle, fridge, heater and extension lead counts. We test at desks with the minimum of downtime, unplugging each item for under a minute.",
+      "You get a certificate and a record of every item, so you can see what was tested, where it was and when it's next due."
+    ],
+    "typical": ["Monitors, PCs & docks", "Laptop chargers", "Kitchen kettles & fridges", "Heaters & fans", "Extension leads"]
+  },
+  {
+    "slug": "landlords",
+    "name": "Landlords & HMOs",
+    "title": "PAT Testing for Landlords & HMOs in Teesside",
+    "short": "Room-by-room testing with a certificate for each property, for agents and licensing.",
+    "body": [
+      "Landlords must make sure any electrical appliances they supply are safe. HMO licences and many letting agents ask for a PAT certificate as proof.",
+      "We test every supplied item, tag it and send one certificate per address. If you have several properties, we'll do them in one run."
+    ],
+    "typical": ["Kettles, toasters & microwaves", "Washing machines & fridges", "Vacuums", "Lamps & heaters", "TVs"]
+  },
+  {
+    "slug": "schools",
+    "name": "Schools & nurseries",
+    "title": "PAT Testing for Schools & Nurseries in Teesside",
+    "short": "Holiday and after-hours testing, with records ready for inspectors.",
+    "body": [
+      "Schools have hundreds of items spread across classrooms, halls, kitchens and offices, and they need records that stand up to an audit. We test during holidays or after school and leave a clear test record organised by room.",
+      "Staff-owned items and borrowed equipment are tagged too, so nothing slips through."
+    ],
+    "typical": ["Interactive displays & projectors", "Laptop trolleys", "DT & science equipment", "Kitchen kit", "Staff room appliances"]
+  },
+  {
+    "slug": "care-homes",
+    "name": "Care homes",
+    "title": "PAT Testing for Care Homes in Teesside",
+    "short": "Quiet, careful testing around residents, including hoist and mobility chargers.",
+    "body": [
+      "In a care setting, equipment safety matters more than anywhere. We work around residents' routines, test personal items with consent and give you records ready for CQC evidence.",
+      "Hoist chargers, profiling bed controls and mobility scooter chargers are all included."
+    ],
+    "typical": ["Residents' personal items", "Hoist & mobility chargers", "Kitchen & laundry kit", "Office IT", "Activity equipment"]
+  },
+  {
+    "slug": "hospitality",
+    "name": "Shops, cafés & pubs",
+    "title": "PAT Testing for Shops, Cafés, Pubs & Restaurants in Teesside",
+    "short": "Booked before opening or after close, so you never lose a sale.",
+    "body": [
+      "Hospitality kit works hard, gets moved and gets wet, so it's the equipment most likely to fail. We test before you open or after close, and fix minor faults like plugs and fuses there and then.",
+      "Your certificate is ready for your insurer, licensing officer or landlord."
+    ],
+    "typical": ["Coffee machines", "Microwaves & grills", "Bar chillers", "Tills & card machines", "Display lighting"]
+  },
+  {
+    "slug": "construction",
+    "name": "Construction & 110V",
+    "title": "PAT Testing for Construction Sites & 110V Equipment in Teesside",
+    "short": "Site kit, transformers and 110V tools, tested on site or at the yard.",
+    "body": [
+      "Construction equipment needs testing far more often than office kit, typically every three months. We test 110V tools, transformers, leads and site cabins, on site or at your yard.",
+      "110V and 230V items are recorded separately, so site managers can see their site kit at a glance."
+    ],
+    "typical": ["110V transformers", "Drills, saws & grinders", "Extension reels", "Site cabin appliances", "Task lighting"]
+  },
+  {
+    "slug": "events",
+    "name": "Events & hire",
+    "title": "PAT Testing for Event & Hire Equipment in Teesside",
+    "short": "Hire stock and event kit, tested at your unit between jobs.",
+    "body": [
+      "Hire companies and event suppliers need every item tested before it goes out. We test at your unit in batches between jobs and tag each item with its own ID.",
+      "Most event organisers ask for a PAT certificate before you load in, so ours is ready to send."
+    ],
+    "typical": ["PA & lighting", "Generators' leads", "Catering kit", "Inflatables blowers", "Heaters"]
+  }
+]

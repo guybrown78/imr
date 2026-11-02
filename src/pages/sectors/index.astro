@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import sectors from '../../data/sectors.json';
+---
+<Base title="Who We PAT Test For | Offices, Landlords, Schools, Care Homes | IMR Services" description="PAT testing for offices, landlords and HMOs, schools, care homes, shops and hospitality, construction and events across Teesside.">
+  <PageHead label="Sectors" title="PAT testing for every kind of premises." lede="Different places use equipment differently. Here's how we handle yours." crumbs={[{ name: 'Who we test for' }]} />
+  <section class="section section--paper">
+    <div class="wrap">
+      <ul class="sx">
+        {sectors.map((s, i) => (
+          <li><a href={`/sectors/${s.slug}/`}><span class="mono">{String(i + 1).padStart(2, '0')}</span><h2>{s.name}</h2><p>{s.short}</p></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .sx { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1.5px solid var(--ink); }
+  .sx a { display: grid; gap: 0.3rem; padding: 1.5rem 0.25rem; border-bottom: 1px solid var(--line-strong); color: var(--ink); text-decoration: none; }
+  .sx a:hover { background: var(--mist); padding-inline: 0.85rem; }
+  .sx .mono { font-size: 0.75rem; color: var(--forest); }
+  .sx h2 { font-size: var(--step-2); margin: 0; }
+  .sx p { margin: 0; color: var(--text-muted); }
+  @media (min-width: 860px) { .sx a { grid-template-columns: 3rem 16rem 1fr; align-items: baseline; gap: 1.5rem; } }
+</style>

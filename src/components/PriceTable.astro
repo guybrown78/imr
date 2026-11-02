@@ -1,0 +1,31 @@
+---
+/** Worked examples, calculated from pricing.json at build time. */
+import { pricing, priceFor, gbp, vatNote } from '../lib/pricing';
+const rows = pricing.exampleCounts.map((n) => ({ n, price: priceFor(n), each: priceFor(n) / n }));
+---
+<div class="pt">
+  <table>
+    <caption class="visually-hidden">PAT testing prices by number of appliances</caption>
+    <thead><tr><th scope="col">Appliances</th><th scope="col">You pay</th><th scope="col">Works out per item</th></tr></thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td class="mono">{r.n}</td>
+          <td><strong>{gbp(r.price)}</strong></td>
+          <td class="mono">{gbp(Math.round(r.each * 100) / 100)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="pt__foot mono">Minimum {gbp(pricing.minimumCharge)} · Covers first {pricing.itemsIncluded} · Then {gbp(pricing.perExtraItem)}/item · {vatNote()} · TS postcodes</p>
+</div>
+<style>
+  .pt { background: var(--paper); border: 1.5px solid var(--ink); border-radius: var(--radius-lg); overflow: hidden; }
+  table { font-size: var(--step-0); }
+  th { text-align: left; font: 500 0.7rem/1.2 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); padding: 1rem 1.1rem 0.7rem; border-bottom: 1.5px dashed var(--line-strong); }
+  td { padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--line); }
+  td strong { font-size: 1.3rem; letter-spacing: -0.02em; }
+  td:last-child, th:last-child { text-align: right; color: var(--text-muted); }
+  tbody tr:hover { background: var(--mist); }
+  .pt__foot { margin: 0; padding: 0.85rem 1.1rem; font-size: 0.72rem; color: var(--text-muted); background: var(--mist); letter-spacing: 0.02em; }
+</style>

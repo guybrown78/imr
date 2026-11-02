@@ -1,0 +1,25 @@
+---
+/** The IMR test-tag logo, drawn as inline SVG so it stays crisp and uses the site fonts. */
+interface Props { variant?: 'primary' | 'reverse' | 'mark'; class?: string; title?: string }
+const { variant = 'primary', class: cls, title = 'IMR Services – PAT tested' } = Astro.props;
+const c = variant === 'reverse'
+  ? { body: '#3EE08F', eyelet: '#0B1F16', hole: '#3EE08F', name: '#0B1F16', sub: '#0B5D3B', accent: '#0B5D3B', sub2: '#0B1F16', rule: '#0B5D3B' }
+  : { body: '#0B5D3B', eyelet: '#3EE08F', hole: '#FFFFFF', name: '#FFFFFF', sub: '#CFF7E0', accent: '#3EE08F', sub2: '#FFFFFF', rule: '#CFF7E0' };
+---
+{variant === 'mark' ? (
+  <svg class={cls} viewBox="0 0 300 150" role="img" aria-label={title}>
+    <path d="M52 0H278Q300 0 300 22V128Q300 150 278 150H52L0 102V48Z" fill="#0B5D3B" />
+    <circle cx="48" cy="75" r="17" fill="#3EE08F" /><circle cx="48" cy="75" r="9" fill="#fff" />
+    <text x="86" y="104" fill="#fff" font-family="Bricolage Grotesque Variable, sans-serif" font-weight="800" font-size="84" textLength="190" lengthAdjust="spacingAndGlyphs">IMR</text>
+  </svg>
+) : (
+  <svg class={cls} viewBox="0 0 600 190" role="img" aria-label={title}>
+    <path d="M60 0H576Q600 0 600 24V166Q600 190 576 190H60L0 130V60Z" fill={c.body} />
+    <circle cx="52" cy="95" r="20" fill={c.eyelet} /><circle cx="52" cy="95" r="11" fill={c.hole} />
+    <text x="94" y="118" fill={c.name} font-family="Bricolage Grotesque Variable, sans-serif" font-weight="800" font-size="100" textLength="210" lengthAdjust="spacingAndGlyphs">IMR</text>
+    <text x="96" y="160" fill={c.sub} font-family="IBM Plex Mono, monospace" font-weight="500" font-size="22" textLength="206" lengthAdjust="spacing">SERVICES</text>
+    <line x1="336" y1="34" x2="336" y2="162" stroke={c.rule} stroke-width="3" stroke-dasharray="7 9" />
+    <text x="364" y="118" fill={c.accent} font-family="Bricolage Grotesque Variable, sans-serif" font-weight="800" font-size="100" textLength="196" lengthAdjust="spacingAndGlyphs">PAT</text>
+    <text x="366" y="160" fill={c.sub2} font-family="IBM Plex Mono, monospace" font-weight="500" font-size="22" textLength="192" lengthAdjust="spacing">TESTED</text>
+  </svg>
+)}

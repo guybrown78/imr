@@ -1,0 +1,60 @@
+{
+  "_readme": "Single source of truth for business and contact details. The phone number is stored once. tel: and WhatsApp links are derived from it in src/lib/site.ts and public/api/lib.php.",
+  "name": "IMR Services",
+  "url": "https://imrservices.net",
+  "phone": "07939 666650",
+  "email": "info@imrservices.net",
+  "region": "Teesside",
+  "addressLocality": "Middlesbrough",
+  "addressRegion": "North Yorkshire",
+  "postalCodeDisplay": "TS1 – TS27",
+  "foundedYear": 2013,
+  "hours": [
+    {
+      "days": "Mon – Fri",
+      "time": "7:30am – 6pm",
+      "schema": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "07:30",
+      "closes": "18:00"
+    },
+    {
+      "days": "Saturday",
+      "time": "8am – 1pm",
+      "schema": [
+        "Saturday"
+      ],
+      "opens": "08:00",
+      "closes": "13:00"
+    }
+  ],
+  "afterHoursNote": "Evening and weekend testing available so you don't have to close.",
+  "credentials": [
+    "City & Guilds 2377 qualified",
+    "Fully insured",
+    "Calibrated test kit",
+    "IET Code of Practice"
+  ],
+  "reviews": {
+    "googleRating": null,
+    "googleCount": null,
+    "googleUrl": null
+  },
+  "testimonials": [
+    {
+      "quote": "A professional and competitive service with minimum fuss.",
+      "who": "DDL Ltd",
+      "where": "Office, Middlesbrough"
+    }
+  ],
+  "socials": {},
+  "features": {
+    "_readme": "Switch digitalRecords to true when QR tags, online records and digital certificates are live. The home page section changes from 'coming soon' to live.",
+    "digitalRecords": false
+  }
+}

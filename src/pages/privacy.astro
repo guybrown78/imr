@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../lib/site';
+---
+<Base title="Privacy Notice | IMR Services" description="How IMR Services uses the details you send us.">
+  <PageHead label="Legal" title="Privacy notice" crumbs={[{ name: 'Privacy' }]} />
+  <section class="section section--paper">
+    <article class="wrap prose">
+      <p>{site.name} ("we") is the controller of the personal data you send us through this website, by phone, WhatsApp or email. You can contact us at <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <h2>What we collect</h2>
+      <p>When you request a quote, we collect your name, business name (optional), phone number, email, postcode, appliance count and any message you add. We also store a one-way hash of your IP address to stop spam. We can't use it to identify you.</p>
+      <h2>Why we use it</h2>
+      <p>We use your details to reply to your enquiry, arrange and carry out testing, send your certificate and remind you when a retest is due. Our lawful basis is taking steps at your request before entering into a contract, and our legitimate interest in running the service.</p>
+      <h2>Who sees it</h2>
+      <p>Only us. Data is stored on our UK-based hosting provider's servers. We don't sell or share your details for marketing.</p>
+      <h2>How long we keep it</h2>
+      <p>We keep enquiries that don't become jobs for 12 months, and customer test records for as long as you're a customer plus 6 years, for insurance and legal reasons.</p>
+      <h2>Your rights</h2>
+      <p>You can ask to see, correct or delete your data, or object to how we use it, by emailing {site.email}. You can also complain to the Information Commissioner's Office (ico.org.uk).</p>
+      <h2>Cookies</h2>
+      <p>This site doesn't set tracking cookies.</p>
+    </article>
+  </section>
+</Base>

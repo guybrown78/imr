@@ -1,0 +1,71 @@
+---
+import TagLogo from './TagLogo.astro';
+import Icon from './Icon.astro';
+import areas from '../data/areas.json';
+import sectors from '../data/sectors.json';
+import { site, phone, mailto, waLink } from '../lib/site';
+import { priceLine, vatNote } from '../lib/pricing';
+const year = new Date().getFullYear();
+---
+<footer class="ftr section--ink on-dark">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <TagLogo variant="reverse" class="ftr__logo" />
+        <p>PAT testing across Teesside and the surrounding area. {priceLine()}. {vatNote()}.</p>
+        <ul class="ftr__contact">
+          <li><a href={phone.tel}><Icon name="phone" /> <span class="mono">{phone.display}</span></a></li>
+          <li><a href={waLink('Hi IMR, I’d like a price for PAT testing.')}><Icon name="whatsapp" /> WhatsApp us</a></li>
+          <li><a href={mailto()}><Icon name="mail" /> {site.email}</a></li>
+        </ul>
+        <dl class="ftr__hours mono">
+          {site.hours.map((h) => <><dt>{h.days}</dt><dd>{h.time}</dd></>)}
+        </dl>
+      </div>
+
+      <nav class="ftr__col" aria-label="Areas we cover">
+        <p class="label">PAT testing near you</p>
+        <ul class="ftr__areas">
+          {areas.map((a) => <li><a href={`/pat-testing/${a.slug}/`}>{a.name}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="ftr__col" aria-label="Sectors">
+        <p class="label">Who we test for</p>
+        <ul>{sectors.map((s) => <li><a href={`/sectors/${s.slug}/`}>{s.name}</a></li>)}</ul>
+        <p class="label" style="margin-top:1.75rem">Company</p>
+        <ul>
+          <li><a href="/prices/">Prices</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/reviews/">Reviews</a></li>
+          <li><a href="/about/">About us</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="ftr__base mono">
+      <span>© {year} {site.name} · Teesside, {site.postalCodeDisplay}</span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { padding-block: clamp(3rem, 6vw, 5rem) 2rem; font-size: 0.95rem; }
+  .ftr a { color: #fff; text-decoration: none; }
+  .ftr a:hover { color: var(--signal); }
+  .ftr__top { display: grid; gap: 2.5rem; }
+  .ftr__brand :global(.ftr__logo) { width: 180px; margin-bottom: 1.25rem; }
+  .ftr__brand p { color: var(--mint); max-width: 36ch; }
+  .ftr__contact { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: 0.6rem; }
+  .ftr__contact a { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; }
+  .ftr__contact :global(svg) { width: 18px; color: var(--signal); }
+  .ftr__hours { display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 1rem; font-size: 0.8rem; color: var(--mint); margin: 0; }
+  .ftr__hours dd { margin: 0; }
+  .ftr__col ul { list-style: none; padding: 0; margin: 0.9rem 0 0; display: grid; gap: 0.45rem; }
+  .ftr__areas { grid-template-columns: 1fr 1fr; column-gap: 1rem; }
+  .ftr__base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1.5px dashed rgba(207, 247, 224, 0.25); font-size: 0.75rem; color: var(--mint); }
+  .ftr__base a { color: var(--mint); }
+  @media (min-width: 860px) { .ftr__top { grid-template-columns: 1.3fr 1fr 0.8fr; gap: 3rem; } }
+</style>

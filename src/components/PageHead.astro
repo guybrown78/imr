@@ -1,0 +1,19 @@
+---
+import Crumbs from './Crumbs.astro';
+interface Props { label: string; title: string; lede?: string; crumbs: { name: string; href?: string }[] }
+const { label, title, lede, crumbs } = Astro.props;
+---
+<section class="ph">
+  <div class="wrap">
+    <Crumbs items={crumbs} />
+    <p class="label">{label}</p>
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</section>
+<style>
+  .ph { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+  h1 { max-width: 18ch; }
+  .lede { max-width: 50ch; }
+</style>

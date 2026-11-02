@@ -1,0 +1,233 @@
+---
+import Base from '../layouts/Base.astro';
+import QuoteWidget from '../components/QuoteWidget.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import PriceTable from '../components/PriceTable.astro';
+import FAQ from '../components/FAQ.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import AssetCard from '../components/AssetCard.astro';
+import areas from '../data/areas.json';
+import sectors from '../data/sectors.json';
+import { priceLine, pricing, gbp, priceFor, vatNote } from '../lib/pricing';
+import { site, phone, waLink } from '../lib/site';
+import { faqSchema, service } from '../lib/schema';
+
+const faqs = [
+  { q: 'How much does PAT testing cost in Teesside?', a: `${priceLine()}. So 25 appliances is ${gbp(priceFor(25))} and 50 is ${gbp(priceFor(50))}. ${vatNote()}. The price includes tags, the certificate and your test record, with no separate call-out fee.` },
+  { q: 'How long does PAT testing take?', a: 'Most items take a minute or two. A small shop is usually done in under half an hour, and a 50-item office in around two hours. We work around you, so nobody is unplugged for long.' },
+  { q: 'Is PAT testing a legal requirement?', a: "The law doesn't name PAT testing, but the Electricity at Work Regulations 1989 require employers to keep electrical equipment safe. A dated test with records is the accepted way to prove you've done that, and most insurers ask for it." },
+  { q: 'How often do I need PAT testing?', a: "It depends on the item and where it's used. Construction kit is usually every 3 months, kitchens and workshops every 6 to 12 months, and offices less often. We print a recommended retest date on every tag." },
+  { q: 'Do I need to be there?', a: 'Not necessarily. Plenty of landlords and offices leave access with a key safe, a neighbour or reception. We send the certificate and tell you about anything that failed.' },
+  { q: 'What do I get afterwards?', a: 'Every item gets a dated pass or fail tag. You get a certificate and a record of every item tested, so you can show your insurer, landlord or an inspector.' },
+];
+
+const steps = [
+  { t: 'Get your price', d: 'Tell us roughly how many items you have. The price shows instantly, and you can book it in a minute.' },
+  { t: 'We test on site', d: 'Before opening, after close or at a quiet time. Every item is inspected, tested and tagged with its own ID.' },
+  { t: 'Your certificate', d: 'You get a certificate and a record of every item tested. Failed items are explained in plain English.' },
+];
+const featured = areas.filter((a) => a.featured);
+const others = areas.filter((a) => !a.featured);
+---
+<Base
+  title={`PAT Testing Teesside | ${gbp(pricing.minimumCharge)} for ${pricing.itemsIncluded} Items, Instant Price | IMR Services`}
+  description={`PAT testing in Teesside, Middlesbrough, Stockton, Redcar and nearby. ${priceLine()}. Get an instant price online, then book or WhatsApp us. City & Guilds qualified and insured.`}
+  schema={[service('PAT testing in Teesside', 'Teesside', site.url + '/'), faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="label">PAT testing · Teesside · {site.postalCodeDisplay}</p>
+        <h1>PAT testing in Teesside, <span>priced before we&nbsp;arrive.</span></h1>
+        <p class="lede">{priceLine()}. For offices, shops, landlords, schools and sites across Middlesbrough, Stockton, Redcar and the rest of Teesside.</p>
+        <div class="hero__btns">
+          <a class="btn btn--ghost btn--lg" href={phone.tel}><Icon name="phone" /> <span class="mono">{phone.display}</span></a>
+          <a class="btn btn--ghost btn--lg" href={waLink('Hi IMR, I’d like a price for PAT testing.')}><Icon name="whatsapp" /> WhatsApp us</a>
+        </div>
+        <TrustStrip />
+      </div>
+      <div class="hero__quote">
+        <QuoteWidget />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="how">
+    <div class="wrap">
+      <p class="label label--rule">How it works</p>
+      <h2 id="how" class="h-max">Three steps. No paperwork chasing.</h2>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li>
+            <span class="steps__n mono">0{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="prices">
+    <div class="wrap split">
+      <div>
+        <p class="label label--rule">Prices</p>
+        <h2 id="prices">One simple rule. No call-out fee on top.</h2>
+        <p class="lede">{gbp(pricing.minimumCharge)} covers the visit and your first {pricing.itemsIncluded} items. After that, every appliance is {gbp(pricing.perExtraItem)}. That's it.</p>
+        <ul class="eyelets">
+          <li>Tags, certificate and test record included</li>
+          <li>Minor fixes like plugs and fuses sorted on the day, with your OK</li>
+          <li>Same price across every TS postcode</li>
+          <li>{vatNote()}</li>
+        </ul>
+        <p style="margin-top:1.5rem"><a class="arrow" href="/prices/">Full price guide</a></p>
+      </div>
+      <PriceTable />
+    </div>
+  </section>
+
+  <section class="section section--ink on-dark" aria-labelledby="digital">
+    <div class="wrap split digital">
+      {site.features.digitalRecords ? (
+        <div>
+          <p class="label label--rule">Digital records</p>
+          <h2 id="digital">Every appliance gets its own ID. Every record is online.</h2>
+          <p class="lede">No more lost paper certificates. Each tag carries a unique asset ID and QR code that links to that item's test history.</p>
+          <ul class="eyelets">
+            <li>Scan any tag with a phone camera to see its status. No app needed.</li>
+            <li>Digital certificate and asset register by email</li>
+            <li>We remind you before anything is due for a retest</li>
+            <li>Failed items are listed with what's wrong and how to fix it</li>
+          </ul>
+        </div>
+      ) : (
+        <div>
+          <p class="label label--rule">Coming soon · Digital records</p>
+          <h2 id="digital">Every appliance with its own ID. Every record online.</h2>
+          <p class="lede">We're moving our test records online. Soon every tag will carry a unique asset ID and a QR code that links to that item's test history.</p>
+          <ul class="eyelets">
+            <li>Scan a tag with a phone camera to see its status. No app needed.</li>
+            <li>A digital certificate and asset register for every job</li>
+            <li>A reminder before anything is due for a retest</li>
+            <li>Failed items listed with what's wrong and how to fix it</li>
+          </ul>
+        </div>
+      )}
+      <AssetCard preview={!site.features.digitalRecords} />
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="who">
+    <div class="wrap">
+      <p class="label label--rule">Who we test for</p>
+      <h2 id="who" class="h-max">Small shop or a whole site, it's the same rule.</h2>
+      <ul class="index">
+        {sectors.map((s) => (
+          <li>
+            <a href={`/sectors/${s.slug}/`}>
+              <span class="index__name">{s.name}</span>
+              <span class="index__desc">{s.short}</span>
+              <Icon name="arrow" class="index__arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="areas" aria-labelledby="near">
+    <div class="wrap areas">
+      <div>
+        <p class="label label--rule">Areas</p>
+        <h2 id="near">PAT testing near you.</h2>
+        <p class="lede">We're local to Teesside and test across every TS postcode at the same price, from Hartlepool down to Stokesley.</p>
+      </div>
+      <div>
+        <ul class="chips chips--lg">
+          {featured.map((a) => <li><a class="chip" href={`/pat-testing/${a.slug}/`}>{a.name}</a></li>)}
+        </ul>
+        <p class="label areas__more">Also covering</p>
+        <ul class="chips">
+          {others.map((a) => <li><a class="chip" href={`/pat-testing/${a.slug}/`}>{a.name}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {site.testimonials.length > 0 && (
+    <section class="section--tight section--paper">
+      <div class="wrap">
+        {site.testimonials.slice(0, 1).map((t) => (
+          <figure class="quote">
+            <blockquote><p>“{t.quote}”</p></blockquote>
+            <figcaption class="mono">{t.who} · {t.where}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="faq">
+    <div class="wrap split">
+      <div class="sticky-col">
+        <p class="label label--rule">Questions</p>
+        <h2 id="faq">Straight answers.</h2>
+        <p class="muted">Something else? <a href={waLink('Hi IMR, quick question about PAT testing:')}>Message us on WhatsApp</a> and we'll reply quickly.</p>
+      </div>
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { padding-block: clamp(1.75rem, 1rem + 4vw, 5rem) clamp(3rem, 2rem + 4vw, 6rem); background:
+      radial-gradient(circle at 1px 1px, rgba(11, 93, 59, 0.13) 1px, transparent 0) 0 0 / 22px 22px; }
+  .hero__in { display: grid; gap: 2.5rem; align-items: center; }
+  h1 { max-width: 15ch; }
+  h1 span { display: block; color: var(--forest); }
+  .hero__copy .lede { margin-bottom: 1.5rem; }
+  .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.75rem; }
+  .hero__quote { width: 100%; max-width: 30rem; justify-self: center; }
+  @media (min-width: 960px) {
+    .hero__in { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 4rem; }
+    .hero__quote { justify-self: end; }
+  }
+  @media (max-width: 959px) { .hero__btns { display: none; } }
+
+  .h-max { max-width: 20ch; }
+  .steps { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 2rem; counter-reset: s; }
+  .steps li { position: relative; padding-top: 1.25rem; border-top: 1.5px dashed var(--line-strong); }
+  .steps__n { position: absolute; top: -0.85rem; left: 0; display: inline-block; background: var(--forest); color: #fff; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.7rem 0.3rem 1.1rem; clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%); border-radius: 0 4px 4px 0; }
+  .steps h3 { margin-top: 0.6rem; font-size: var(--step-2); }
+  .steps p { color: var(--text-muted); max-width: 32ch; }
+  @media (min-width: 800px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+
+  .digital { align-items: center; }
+  .digital .lede { margin-bottom: 1.5rem; }
+
+  .index { list-style: none; padding: 0; margin: 2rem 0 0; border-top: 1.5px solid var(--ink); }
+  .index a { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1.5rem; align-items: center; padding: 1.2rem 0.25rem; border-bottom: 1px solid var(--line-strong); color: var(--ink); text-decoration: none; transition: background-color 0.15s, padding 0.2s; }
+  .index a:hover { background: var(--mist); padding-inline: 0.85rem; }
+  .index__name { font-size: var(--step-2); font-weight: 700; letter-spacing: -0.025em; }
+  .index__desc { grid-column: 1; color: var(--text-muted); font-size: 0.95rem; }
+  .index :global(.index__arrow) { grid-row: 1 / span 2; grid-column: 2; width: 26px; color: var(--forest); }
+  @media (min-width: 860px) {
+    .index a { grid-template-columns: 19rem 1fr auto; }
+    .index__desc { grid-column: 2; }
+    .index :global(.index__arrow) { grid-column: 3; grid-row: 1; }
+  }
+
+  .areas { display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .areas { grid-template-columns: 0.9fr 1.1fr; gap: 4rem; } }
+  .chips--lg :global(.chip) { font-size: 1.05rem; min-height: 46px; padding-inline: 0.85rem 1.1rem; }
+  .areas__more { margin: 1.75rem 0 0.75rem; }
+
+  .quote { margin: 0; display: grid; gap: 1.25rem; justify-items: start; }
+  .quote blockquote { margin: 0; }
+  .quote p { font-size: var(--step-3); font-weight: 650; letter-spacing: -0.03em; line-height: 1.15; max-width: 26ch; margin: 0; }
+  .quote figcaption { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest); padding-left: 2.5rem; position: relative; }
+  .quote figcaption::before { content: ''; position: absolute; left: 0; top: 50%; width: 1.75rem; border-top: 1.5px solid currentColor; }
+</style>

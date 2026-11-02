@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import QuoteWidget from '../../components/QuoteWidget.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+import { site } from '../../lib/site';
+export async function getStaticPaths() {
+  return (await getCollection('guides')).map((g) => ({ params: { slug: g.id }, props: { g } }));
+}
+const { g } = Astro.props;
+const { Content } = await render(g);
+const path = `/guides/${g.id}/`;
+const article = { '@context': 'https://schema.org', '@type': 'Article', headline: g.data.title, description: g.data.description, author: { '@type': 'Organization', name: site.name }, publisher: { '@id': `${site.url}/#business` }, mainEntityOfPage: site.url + path };
+---
+<Base title={`${g.data.title} | IMR Services`} description={g.data.description} schema={[article, breadcrumbSchema([{ name: 'Guides', href: '/guides/' }, { name: g.data.title, href: path }])]}>
+  <PageHead label="Guide" title={g.data.title} lede={g.data.description} crumbs={[{ name: 'Guides', href: '/guides/' }, { name: g.data.title }]} />
+  <section class="section section--paper">
+    <div class="wrap split">
+      <article class="prose"><Content /></article>
+      <div class="sticky-col"><QuoteWidget /></div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

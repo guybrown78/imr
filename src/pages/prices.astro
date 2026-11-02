@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import QuoteWidget from '../components/QuoteWidget.astro';
+import PriceTable from '../components/PriceTable.astro';
+import FAQ from '../components/FAQ.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { priceLine, pricing, gbp, priceFor, vatNote } from '../lib/pricing';
+import { faqSchema, breadcrumbSchema } from '../lib/schema';
+const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+const faqs = [
+  { q: 'Is there a call-out charge?', a: `No. The ${gbp(pricing.minimumCharge)} minimum covers the visit and your first ${pricing.itemsIncluded} items.` },
+  { q: 'Do extension leads count as an item?', a: `Yes. Extension leads and detachable power leads are tested separately, so each one counts as an item at ${gbp(pricing.perExtraItem)}.` },
+  { q: 'What if something fails?', a: 'We label it, explain why and, with your OK, fix minor faults like plugs and fuses on the day. Parts are charged at cost.' },
+  { q: 'What if I have fewer items than I said?', a: 'You only pay for what we test. If you have more, the same per-item price applies. No surprises.' },
+  { q: 'Do you price outside TS postcodes?', a: pricing.outsideAreaNote },
+];
+---
+<Base title={`PAT Testing Prices Teesside (${updated}) | ${gbp(pricing.minimumCharge)} for ${pricing.itemsIncluded}, then ${gbp(pricing.perExtraItem)} Each`} description={`PAT testing prices in Teesside, updated ${updated}. ${priceLine()}. No call-out fee. Worked examples and an instant calculator.`} schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Prices', href: '/prices/' }])]}>
+  <PageHead label={`Prices · Updated ${updated}`} title="PAT testing prices in Teesside." lede={`${priceLine()}. ${vatNote()}. No call-out fee, no travel charge in TS postcodes and no hidden extras.`} crumbs={[{ name: 'Prices' }]} />
+  <section class="section section--paper">
+    <div class="wrap split">
+      <div>
+        <h2>Worked examples</h2>
+        <p class="muted">Every price below is calculated from the same rule as the calculator. A typical small office of 40 items comes to {gbp(priceFor(40))}.</p>
+        <PriceTable />
+      </div>
+      <div class="sticky-col"><QuoteWidget /></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky-col"><p class="label label--rule">Pricing FAQs</p><h2>The small print, in big print.</h2></div>
+      <FAQ items={faqs} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

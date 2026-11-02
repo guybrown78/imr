@@ -1,0 +1,308 @@
+[
+  {
+    "slug": "middlesbrough",
+    "name": "Middlesbrough",
+    "postcodes": ["TS1", "TS2", "TS3", "TS4", "TS5", "TS7", "TS8"],
+    "featured": true,
+    "lede": "From offices on Corporation Road to workshops on Riverside Park, we test portable appliances right across Middlesbrough.",
+    "body": [
+      "Middlesbrough is where most of our work happens. It's a real mix: offices and agencies in the town centre, student and HMO lets around Linthorpe and the university, takeaways along Parliament Road and Linthorpe Road, and units on Riverside Park and Cargo Fleet that run 110V site kit.",
+      "We fit around you. Offices can be tested a floor at a time so nobody loses a morning, and shops and food businesses can have it done before opening or after close. Every item gets a dated tag, and you get a certificate and a record of everything tested."
+    ],
+    "places": ["Town centre & Corporation Road", "Linthorpe & the university area", "Riverside Park", "Cargo Fleet", "Acklam", "Coulby Newham & Hemlington"],
+    "faqs": [
+      { "q": "Do you cover all of Middlesbrough?", "a": "Yes. Every Middlesbrough postcode from TS1 to TS8 is in our standard price area, so the instant quote is the price you pay." },
+      { "q": "Can you test student or HMO lets around the university?", "a": "Yes. We test landlord-supplied appliances room by room, tag each one and send the certificate you can give to your agent or licensing officer." },
+      { "q": "We're a takeaway. Can you test before we open?", "a": "Yes. Most food businesses on Linthorpe Road and Parliament Road book us for the morning before service, so nothing is unplugged while you're trading." }
+    ],
+    "neighbours": ["stockton-on-tees", "thornaby", "marton", "nunthorpe", "eston", "normanby"]
+  },
+  {
+    "slug": "stockton-on-tees",
+    "name": "Stockton-on-Tees",
+    "postcodes": ["TS16", "TS18", "TS19", "TS20", "TS21"],
+    "featured": true,
+    "lede": "PAT testing for Stockton businesses, schools and landlords, from the High Street to Preston Farm and Portrack.",
+    "body": [
+      "Stockton has one of the widest high streets in the country, and plenty of the businesses on and around it are small: cafés, salons, barbers, charity shops and independent retailers. For a shop with a dozen items, our minimum charge covers the first ten, so you know exactly what you're paying before we turn up.",
+      "Further out we test at Preston Farm Business Park, on Portrack Lane and around Norton and Hardwick, where offices and trade counters have hundreds of IT items, extension leads and kitchen appliances between them. Larger sites get a full record of every item and where it is, so next year's retest is quicker to plan."
+    ],
+    "places": ["High Street & Wellington Square", "Preston Farm Business Park", "Portrack Lane", "Norton", "Hardwick & Fairfield", "Eaglescliffe"],
+    "faqs": [
+      { "q": "How much is PAT testing for a small shop in Stockton?", "a": "If you've got ten appliances or fewer, it's the minimum charge. Each one after that is priced individually, and the calculator above shows the exact figure for your count." },
+      { "q": "Do you cover Norton, Hardwick and Eaglescliffe?", "a": "Yes. TS16 and TS18 to TS21 are all within our standard Teesside pricing." },
+      { "q": "Can you test our office at Preston Farm out of hours?", "a": "Yes. We often test IT equipment at lunchtime or after 5pm so desks aren't disturbed. Tell us when suits you in the quote form." }
+    ],
+    "neighbours": ["thornaby", "billingham", "ingleby-barwick", "yarm", "middlesbrough", "hartlepool"]
+  },
+  {
+    "slug": "redcar",
+    "name": "Redcar",
+    "postcodes": ["TS10"],
+    "featured": true,
+    "lede": "Seafront cafés, guest houses, schools and industrial units: PAT testing across Redcar and Coatham.",
+    "body": [
+      "Along the Esplanade and in the town centre, most of the businesses we test are hospitality: cafés, arcades, guest houses and takeaways with kitchen kit that works hard and gets moved about. Those items need checking more often than an office printer, and we'll tell you honestly what interval makes sense.",
+      "Away from the seafront we test for schools, care providers and the industrial and engineering firms around Kirkleatham and the old steelworks land. On mixed sites we separate 230V and 110V equipment on the test record, so you can see your site kit at a glance."
+    ],
+    "places": ["Esplanade & town centre", "Coatham", "Kirkleatham", "Dormanstown", "Newcomen", "Warrenby"],
+    "faqs": [
+      { "q": "How often should a seafront café test its appliances?", "a": "Kitchen equipment that's handled and moved a lot is usually tested every 6 to 12 months. We'll base it on how the items are used rather than a blanket rule." },
+      { "q": "Do guest houses in Redcar need PAT testing?", "a": "If you supply electrical items to guests, such as kettles, hairdryers and TVs, you have a duty to keep them safe. A tagged, certified test is the simplest way to prove it." },
+      { "q": "Is Redcar in your standard price area?", "a": "Yes. TS10 is covered, so the instant quote is the price." }
+    ],
+    "neighbours": ["marske", "eston", "saltburn", "guisborough", "normanby"]
+  },
+  {
+    "slug": "guisborough",
+    "name": "Guisborough",
+    "postcodes": ["TS14"],
+    "featured": true,
+    "lede": "PAT testing for Guisborough's market town businesses, schools, surgeries and holiday lets.",
+    "body": [
+      "Westgate and the market streets are full of independent businesses (cafés, pubs, gift shops and hairdressers), most with somewhere between ten and forty items. We test them quickly, with as little unplugging as possible, and tag everything clearly.",
+      "We also look after holiday lets and rentals on the edge of the moors, where owners are rarely on site. Tell us where the key is, and we'll test, tag and let you know about anything that failed."
+    ],
+    "places": ["Westgate & Market Place", "Guisborough town centre", "Hutton Lowcross", "Belmangate", "Pinchinthorpe", "Holiday lets around the moors"],
+    "faqs": [
+      { "q": "Can you test a holiday let when I'm not there?", "a": "Yes. Arrange access with a key safe or a neighbour and we'll send the certificate and tell you about anything that needs attention." },
+      { "q": "Is Guisborough within your standard pricing?", "a": "Yes. TS14 is a TS postcode, so the instant quote applies." },
+      { "q": "Do pubs need PAT testing?", "a": "Pubs must keep their electrical equipment safe under the Electricity at Work Regulations. PAT testing with records is how most pubs show they've done that." }
+    ],
+    "neighbours": ["nunthorpe", "redcar", "eston", "saltburn", "stokesley"]
+  },
+  {
+    "slug": "eston",
+    "name": "Eston",
+    "postcodes": ["TS6"],
+    "featured": true,
+    "lede": "Local PAT testing in Eston, Grangetown, South Bank and Teesville, for shops, clubs, schools and landlords.",
+    "body": [
+      "Eston and the surrounding estates have a lot of community buildings: working men's clubs, church halls, community centres and nurseries. Those often have a mix of donated and old equipment. We test each item, explain any failures in plain English and only recommend replacement where it's actually needed.",
+      "Landlords with houses across TS6 use us to test all their properties in one run, with one certificate per address. That saves on call-outs, and the test record shows which property each item belongs to."
+    ],
+    "places": ["Eston", "Grangetown", "South Bank", "Teesville", "Lackenby", "Low Grange"],
+    "faqs": [
+      { "q": "Can you test several rental houses on one visit?", "a": "Yes. We plan the route, test each property and send a separate certificate for every address." },
+      { "q": "Our community centre has very old equipment. What happens if it fails?", "a": "We label it as failed, take it out of use and tell you why. Often it's a simple fix, like a plug or fuse, which we can sort on the day." },
+      { "q": "Is TS6 in your instant price area?", "a": "Yes. Eston, Grangetown, South Bank, Normanby and Teesville are all TS6." }
+    ],
+    "neighbours": ["normanby", "middlesbrough", "redcar", "guisborough", "nunthorpe"]
+  },
+  {
+    "slug": "nunthorpe",
+    "name": "Nunthorpe",
+    "postcodes": ["TS7"],
+    "featured": true,
+    "lede": "PAT testing for Nunthorpe's schools, care homes, dental and medical practices and home-based businesses.",
+    "body": [
+      "Nunthorpe is mostly residential, so a lot of the work here is for home offices, therapists, tutors, dog groomers and small practices that need a certificate for their insurer or a client contract. Small jobs are welcome. The minimum charge covers up to ten items.",
+      "We also test for schools, nurseries and care settings around Nunthorpe and Marton, where equipment is used by vulnerable people and records need to be spot-on. Every item goes on a test record you can show an inspector."
+    ],
+    "places": ["Nunthorpe village", "Nunthorpe Grange", "Marton Moor", "Morton Carr", "Home-based businesses"],
+    "faqs": [
+      { "q": "I work from home. Do I need PAT testing?", "a": "If clients visit, or your insurer or a contract asks for it, a PAT certificate is the easiest proof. Ten items or fewer is just the minimum charge." },
+      { "q": "Do you test in care homes?", "a": "Yes. We work quietly around residents and tag everything, including mobility and hoist chargers." },
+      { "q": "Is Nunthorpe covered by your standard price?", "a": "Yes. TS7 is in our TS price area." }
+    ],
+    "neighbours": ["marton", "middlesbrough", "guisborough", "stokesley", "eston"]
+  },
+  {
+    "slug": "yarm",
+    "name": "Yarm",
+    "postcodes": ["TS15"],
+    "featured": true,
+    "lede": "PAT testing for Yarm High Street's restaurants, bars, boutiques and offices, done before you open.",
+    "body": [
+      "Yarm High Street is busy from breakfast until late, so we book most restaurants, bars and boutiques for the hour before opening. Commercial kitchen kit, coffee machines, bar chillers and lighting are tested and tagged without getting in the way of service.",
+      "We also test for the professional offices, dental and beauty clinics, schools and holiday properties in and around Yarm, Kirklevington and Eaglescliffe, all at the same transparent rate."
+    ],
+    "places": ["Yarm High Street", "Bridge Street", "Kirklevington", "Eaglescliffe", "Worsall", "Yarm schools"],
+    "faqs": [
+      { "q": "Can you test our restaurant before service?", "a": "Yes. Most Yarm restaurants book us for the morning, and we're finished well before the first cover." },
+      { "q": "Do coffee machines and bar chillers need testing?", "a": "Yes. Any plug-in equipment does. We test them in place where we can, so nothing needs moving." },
+      { "q": "Is Yarm in your standard price area?", "a": "Yes. TS15 is covered by the instant quote." }
+    ],
+    "neighbours": ["ingleby-barwick", "stockton-on-tees", "thornaby", "stokesley"]
+  },
+  {
+    "slug": "billingham",
+    "name": "Billingham",
+    "postcodes": ["TS22", "TS23"],
+    "featured": true,
+    "lede": "PAT testing in Billingham, from the town centre and Wynyard to the business parks and industrial sites.",
+    "body": [
+      "Billingham's industrial and science sites use a lot of portable kit: workshop tools, extension reels, 110V site equipment and lab and office items. We test it all and keep each category separate on the test record, so maintenance and H&S teams can find what they need quickly.",
+      "In the town centre and around Wynyard we test for shops, gyms, salons, dental practices and offices. If you have more than one site, we'll put them on one schedule and one account."
+    ],
+    "places": ["Billingham town centre", "Belasis Business Park", "Haverton Hill", "Wolviston", "Wynyard", "Cowpen"],
+    "faqs": [
+      { "q": "Do you test 110V site equipment?", "a": "Yes. Transformers, 110V tools and leads are tested and tagged, and recorded separately from 230V items." },
+      { "q": "We have sites in Billingham and Stockton. Can you combine them?", "a": "Yes. One account, one schedule and a separate certificate per site, so you only deal with us once." },
+      { "q": "Is Billingham covered by the instant quote?", "a": "Yes. TS22 and TS23 are both in our TS price area." }
+    ],
+    "neighbours": ["stockton-on-tees", "hartlepool", "thornaby", "middlesbrough"]
+  },
+  {
+    "slug": "thornaby",
+    "name": "Thornaby",
+    "postcodes": ["TS17"],
+    "featured": false,
+    "lede": "PAT testing across Thornaby, Teesside Industrial Estate and Teesside Park.",
+    "body": [
+      "Teesside Industrial Estate is one of the biggest employment sites in the area, with warehouses, trade counters, workshops and offices that each run from a few dozen to a few hundred items. We test in sections so your operation keeps moving.",
+      "In Thornaby town centre and around Teesside Park we test for retail, leisure and hospitality businesses, plus schools and landlords on the residential estates."
+    ],
+    "places": ["Teesside Industrial Estate", "Teesside Park", "Thornaby town centre", "Mandale", "Victoria", "Thornaby Road"],
+    "faqs": [
+      { "q": "Can you test a warehouse without stopping work?", "a": "Yes. We work zone by zone and coordinate with your shift lead, so equipment is only off for a few minutes at a time." },
+      { "q": "Is Thornaby covered by the instant quote?", "a": "Yes. TS17 is in our TS price area." },
+      { "q": "Do you test forklift and battery chargers?", "a": "Plug-in chargers can be PAT tested. Fixed or hard-wired chargers fall under fixed wiring inspection instead." }
+    ],
+    "neighbours": ["stockton-on-tees", "ingleby-barwick", "middlesbrough", "yarm"]
+  },
+  {
+    "slug": "ingleby-barwick",
+    "name": "Ingleby Barwick",
+    "postcodes": ["TS17"],
+    "featured": false,
+    "lede": "PAT testing for Ingleby Barwick's schools, nurseries, shops and home businesses.",
+    "body": [
+      "Ingleby Barwick is one of the largest private housing estates in the country, so there are a lot of home businesses and childminders who need a certificate for Ofsted, an insurer or a client. Small jobs are welcome and quick.",
+      "We also test for the primary schools, nurseries, pharmacies and local shops across the villages, often during holidays or after hours."
+    ],
+    "places": ["Ingleby Barwick villages", "Local centres & shops", "Primary schools", "Nurseries", "Home businesses"],
+    "faqs": [
+      { "q": "I'm a childminder. Do I need PAT testing?", "a": "It's a good way to show you're managing electrical safety, and many insurers and inspectors like to see it. Most childminders fall within the minimum charge." },
+      { "q": "Can you test our school during the holidays?", "a": "Yes. Holidays are the most popular time for schools. Book early for summer." },
+      { "q": "Is Ingleby Barwick in your price area?", "a": "Yes. TS17 is covered by the instant quote." }
+    ],
+    "neighbours": ["thornaby", "yarm", "stockton-on-tees", "middlesbrough"]
+  },
+  {
+    "slug": "marton",
+    "name": "Marton",
+    "postcodes": ["TS7", "TS8"],
+    "featured": false,
+    "lede": "PAT testing for Marton's surgeries, schools, churches and local businesses.",
+    "body": [
+      "Around Marton we mostly test for practices and community buildings: GP and dental surgeries, churches and halls, sports clubs, nurseries and the shops on the local parades.",
+      "Community groups often have a mix of borrowed and donated items. We'll test everything, explain any failures simply, and give you a certificate for the hall committee or your insurer."
+    ],
+    "places": ["Marton village", "Stewart Park area", "Gunnergate", "Brookfield", "Local parades"],
+    "faqs": [
+      { "q": "Do church halls need PAT testing?", "a": "If the hall is used by the public or hired out, keeping equipment safe is part of your duty of care, and most insurers ask for it." },
+      { "q": "Is Marton covered?", "a": "Yes. TS7 and TS8 are both in our TS price area." },
+      { "q": "Can we pay as a charity or community group?", "a": "Yes. We invoice and you can pay by bank transfer." }
+    ],
+    "neighbours": ["nunthorpe", "middlesbrough", "stokesley", "guisborough"]
+  },
+  {
+    "slug": "normanby",
+    "name": "Normanby",
+    "postcodes": ["TS6"],
+    "featured": false,
+    "lede": "PAT testing for Normanby and Ormesby's shops, schools, clubs and landlords.",
+    "body": [
+      "Normanby's high street and the parades around Ormesby are home to takeaways, barbers, cafés and convenience stores, each with a handful of high-use appliances that benefit from regular checks.",
+      "We also test for schools, sports clubs and landlords across TS6, often on the same run as nearby Eston and South Bank to keep costs down."
+    ],
+    "places": ["Normanby High Street", "Ormesby", "Flatts Lane", "Bankside", "Local parades"],
+    "faqs": [
+      { "q": "How quickly can you test a small shop?", "a": "A shop with 10 to 15 items usually takes under 30 minutes, including tagging." },
+      { "q": "Is Normanby in your standard price area?", "a": "Yes. TS6 is covered by the instant quote." },
+      { "q": "Do you replace failed plugs and fuses?", "a": "Yes. Minor fixes like a plug or fuse can usually be done on the spot, and we'll tell you before doing anything." }
+    ],
+    "neighbours": ["eston", "middlesbrough", "nunthorpe", "redcar"]
+  },
+  {
+    "slug": "saltburn",
+    "name": "Saltburn",
+    "postcodes": ["TS12"],
+    "featured": false,
+    "lede": "PAT testing for Saltburn's cafés, holiday lets, guest houses and independent shops.",
+    "body": [
+      "Saltburn has a lot of independent hospitality and holiday accommodation, much of it in older Victorian buildings. Guest-supplied appliances get heavy use, and we'll test and tag the lot, with a certificate you can show booking platforms or your insurer.",
+      "We schedule seaside businesses outside peak trading and can test holiday lets on changeover days."
+    ],
+    "places": ["Saltburn town centre", "Milton Street", "The seafront", "Brotton", "Skelton"],
+    "faqs": [
+      { "q": "Can you test on a changeover day?", "a": "Yes. Tell us the window between guests and we'll be in and out in good time." },
+      { "q": "Is Saltburn in your price area?", "a": "Yes. TS12 is a TS postcode." },
+      { "q": "Do holiday lets need PAT testing?", "a": "It isn't always a legal requirement, but most insurers and booking platforms expect evidence that guest appliances are safe." }
+    ],
+    "neighbours": ["marske", "redcar", "guisborough"]
+  },
+  {
+    "slug": "marske",
+    "name": "Marske-by-the-Sea",
+    "postcodes": ["TS11"],
+    "featured": false,
+    "lede": "PAT testing in Marske and New Marske for shops, clubs, schools and holiday homes.",
+    "body": [
+      "Marske's high street, clubs and seafront businesses are mostly small operations, so our minimum charge covering the first ten items keeps it simple.",
+      "We also test for schools, sports clubs and holiday homes, and can combine Marske with Redcar and Saltburn on the same day."
+    ],
+    "places": ["Marske High Street", "New Marske", "The seafront", "Longbeck"],
+    "faqs": [
+      { "q": "Is Marske covered by the instant quote?", "a": "Yes. TS11 is in our TS price area." },
+      { "q": "Do sports clubs need PAT testing?", "a": "If members or the public use the building, yes, it's part of keeping the premises safe, and insurers usually ask for it." },
+      { "q": "How long does a certificate last?", "a": "There's no fixed expiry. We recommend a retest date based on how each item is used, and it's printed on every tag." }
+    ],
+    "neighbours": ["redcar", "saltburn", "guisborough"]
+  },
+  {
+    "slug": "stokesley",
+    "name": "Stokesley",
+    "postcodes": ["TS9"],
+    "featured": false,
+    "lede": "PAT testing for Stokesley's market town shops, cafés, schools and rural businesses.",
+    "body": [
+      "Stokesley's high street and market place are full of independent shops, cafés and professional offices. We test them at quiet times and tag everything neatly so nothing looks out of place on display.",
+      "Out in the villages we test for farms, workshops, village halls and holiday properties across the Cleveland Hills edge."
+    ],
+    "places": ["Stokesley High Street", "Market Place", "Great Ayton", "Hutton Rudby", "Village halls"],
+    "faqs": [
+      { "q": "Is Stokesley in your standard price area?", "a": "Yes. TS9 is a TS postcode, so the instant quote applies." },
+      { "q": "Do you test farm workshop tools?", "a": "Yes. Portable tools, leads and chargers in workshops and outbuildings are all covered." },
+      { "q": "Can you test a village hall's equipment?", "a": "Yes, and we'll give you a certificate for the hall committee and your insurer." }
+    ],
+    "neighbours": ["nunthorpe", "marton", "guisborough", "yarm"]
+  },
+  {
+    "slug": "hartlepool",
+    "name": "Hartlepool",
+    "postcodes": ["TS24", "TS25", "TS26", "TS27"],
+    "featured": false,
+    "lede": "PAT testing across Hartlepool, from the marina and Headland to the business parks.",
+    "body": [
+      "We test across Hartlepool for marina bars and restaurants, Headland guest houses, offices and the industrial and business parks on the edge of town.",
+      "Hartlepool postcodes are TS, so they get the same instant pricing as the rest of Teesside, with no travel surcharge."
+    ],
+    "places": ["Hartlepool Marina", "The Headland", "Town centre", "Queens Meadow", "Seaton Carew", "Longhill"],
+    "faqs": [
+      { "q": "Do you charge extra to come to Hartlepool?", "a": "No. Hartlepool is TS24 to TS27, so it's the same price as the rest of Teesside." },
+      { "q": "Can you test a marina bar before opening?", "a": "Yes. Most hospitality jobs are booked for the morning." },
+      { "q": "Do you cover Seaton Carew?", "a": "Yes. Seaton Carew is TS25." }
+    ],
+    "neighbours": ["billingham", "stockton-on-tees"]
+  },
+  {
+    "slug": "darlington",
+    "name": "Darlington",
+    "postcodes": ["DL1", "DL2", "DL3"],
+    "featured": false,
+    "lede": "PAT testing for Darlington offices, schools, shops and industrial units.",
+    "body": [
+      "Darlington is just outside our TS postcode pricing, but we test there regularly for offices, retail and the industrial estates on the edge of town.",
+      "Use the calculator for an estimate, and we'll confirm the final price by message before we book. Larger jobs are usually the same rate as Teesside."
+    ],
+    "places": ["Darlington town centre", "Faverdale", "Morton Palms", "Yarm Road", "Haughton"],
+    "faqs": [
+      { "q": "Do you cover Darlington?", "a": "Yes. Darlington is DL rather than TS, so we confirm the price by message first. For larger jobs it's usually the same rate." },
+      { "q": "Can you test our office in Darlington this week?", "a": "Send the quote form or WhatsApp us and we'll come back to you with dates." },
+      { "q": "What paperwork do I get?", "a": "Every job gets a certificate and a record of each item tested, with its result and retest date." }
+    ],
+    "neighbours": ["stockton-on-tees", "yarm"]
+  }
+]

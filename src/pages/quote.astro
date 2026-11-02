@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import QuoteWidget from '../components/QuoteWidget.astro';
+import Icon from '../components/Icon.astro';
+import { priceLine, vatNote } from '../lib/pricing';
+import { phone, waLink, site } from '../lib/site';
+---
+<Base title="Instant PAT Testing Quote | Book Online | IMR Services Teesside" description={`Get an instant PAT testing price for Teesside. ${priceLine()}. Send your booking request in under a minute.`}>
+  <section class="qp">
+    <div class="wrap qp__in">
+      <div class="qp__copy">
+        <Crumbs items={[{ name: 'Instant price' }]} />
+        <p class="label">Instant price · Book in a minute</p>
+        <h1>Your PAT testing price, right now.</h1>
+        <p class="lede">{priceLine()}. {vatNote()}. Set your number, add your details, and we'll confirm a date the same working day.</p>
+        <ol class="qp__steps">
+          <li><span class="mono">01</span> Set your appliance count</li>
+          <li><span class="mono">02</span> Add your details</li>
+          <li><span class="mono">03</span> We confirm a date with you</li>
+        </ol>
+        <div class="qp__alt">
+          <p class="label">Rather talk?</p>
+          <a href={phone.tel}><Icon name="phone" /> <span class="mono">{phone.display}</span></a>
+          <a href={waLink('Hi IMR, I’d like to book PAT testing.')}><Icon name="whatsapp" /> WhatsApp</a>
+          <a href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a>
+        </div>
+      </div>
+      <div class="qp__form"><QuoteWidget full /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .qp { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(3rem, 6vw, 6rem); }
+  .qp__in { display: grid; gap: 2rem; }
+  h1 { max-width: 12ch; }
+  .qp__steps { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 0.5rem; font-weight: 600; }
+  .qp__steps span { display: inline-block; width: 2.4rem; color: var(--forest); font-size: 0.85rem; }
+  .qp__alt { display: grid; gap: 0.6rem; padding-top: 1.25rem; border-top: 1.5px dashed var(--line-strong); }
+  .qp__alt a { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .qp__alt :global(svg) { width: 20px; color: var(--forest); }
+  @media (max-width: 899px) { .qp__steps, .qp__alt { display: none; } .qp .lede { margin-bottom: 0; } }
+  @media (min-width: 900px) { .qp__in { grid-template-columns: 0.8fr 1.2fr; gap: 4rem; align-items: start; } .qp__copy { position: sticky; top: calc(var(--header-h) + 1.5rem); } }
+</style>

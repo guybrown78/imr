@@ -1,0 +1,74 @@
+---
+import TagLogo from './TagLogo.astro';
+import Icon from './Icon.astro';
+import { phone } from '../lib/site';
+
+const nav = [
+  { href: '/pat-testing/', label: 'PAT testing' },
+  { href: '/prices/', label: 'Prices' },
+  { href: '/pat-testing/#areas', label: 'Areas' },
+  { href: '/sectors/', label: 'Who we test for' },
+  { href: '/guides/', label: 'Guides' },
+  { href: '/contact/', label: 'Contact' },
+];
+const path = Astro.url.pathname;
+---
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a href="/" class="hdr__logo" aria-label="IMR Services home"><TagLogo class="hdr__svg" /></a>
+
+    <nav class="hdr__nav" aria-label="Main">
+      <ul>
+        {nav.map((n) => <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="hdr__cta">
+      <a class="hdr__phone mono" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
+      <a class="btn hdr__quote" href="/quote/">Get a price</a>
+    </div>
+
+    <details class="mnav">
+      <summary aria-label="Menu"><Icon name="menu" class="i-open" /><Icon name="close" class="i-close" /></summary>
+      <div class="mnav__panel">
+        <ul>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+        <a class="btn btn--block btn--lg" href="/quote/">Get an instant price</a>
+        <a class="btn btn--ghost btn--block btn--lg" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(243, 250, 246, 0.92); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+  .hdr__in { display: flex; align-items: center; gap: 1.5rem; height: var(--header-h); }
+  .hdr__logo { flex: none; display: block; }
+  .hdr__logo :global(.hdr__svg) { width: 128px; height: auto; }
+  .hdr__nav { display: none; margin-left: auto; }
+  .hdr__nav ul { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+  .hdr__nav a { display: block; padding: 0.5rem 0.7rem; border-radius: 6px; color: var(--ink); text-decoration: none; font-weight: 550; font-size: 0.95rem; }
+  .hdr__nav a:hover { background: var(--mint); }
+  .hdr__nav a[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--forest); border-radius: 0; }
+  .hdr__cta { display: none; align-items: center; gap: 1rem; }
+  .hdr__phone { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.92rem; font-weight: 500; color: var(--ink); text-decoration: none; white-space: nowrap; }
+  .hdr__phone :global(svg) { width: 18px; color: var(--forest); }
+  .hdr__quote { min-height: 42px; padding: 0.5rem 1rem; }
+
+  .mnav { margin-left: auto; }
+  .mnav summary { list-style: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: var(--radius); border: 1.5px solid var(--line-strong); cursor: pointer; background: var(--paper); }
+  .mnav summary::-webkit-details-marker { display: none; }
+  .mnav summary :global(svg) { width: 22px; }
+  .mnav :global(.i-close), .mnav[open] :global(.i-open) { display: none; }
+  .mnav[open] :global(.i-close) { display: block; }
+  .mnav__panel { position: fixed; inset: var(--header-h) 0 auto 0; background: var(--mist); border-bottom: 1px solid var(--line); padding: 0.75rem var(--gutter) 1.5rem; display: grid; gap: 0.75rem; box-shadow: 0 24px 40px -24px rgba(11, 31, 22, 0.4); }
+  .mnav__panel ul { list-style: none; padding: 0; margin: 0 0 0.5rem; }
+  .mnav__panel li a { display: block; padding: 0.9rem 0.25rem; border-bottom: 1px dashed var(--line-strong); color: var(--ink); text-decoration: none; font-size: 1.15rem; font-weight: 650; }
+
+  @media (min-width: 1080px) {
+    .hdr__logo :global(.hdr__svg) { width: 150px; }
+    .hdr__nav, .hdr__cta { display: flex; }
+    .mnav { display: none; }
+  }
+</style>

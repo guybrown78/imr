@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
+import { site, phone, waLink, mailto } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+const ways = [
+  { icon: 'whatsapp', t: 'WhatsApp', d: 'Fastest for quick questions and photos.', href: waLink('Hi IMR, '), cta: 'Open WhatsApp' },
+  { icon: 'phone', t: 'Call', d: phone.display, href: phone.tel, cta: 'Call now' },
+  { icon: 'mail', t: 'Email', d: site.email, href: mailto(), cta: 'Send an email' },
+] as const;
+---
+<Base title="Contact IMR Services | PAT Testing Teesside" description={`Call ${phone.display}, WhatsApp or email ${site.email} for PAT testing across Teesside. Or get an instant price online.`} schema={[breadcrumbSchema([{ name: 'Contact', href: '/contact/' }])]}>
+  <PageHead label="Contact" title="Talk to a real person." lede="Get an instant price online, or message us however suits you. We reply the same working day." crumbs={[{ name: 'Contact' }]}>
+    <a class="btn btn--lg" style="margin-top:1rem" href="/quote/">Get an instant price <Icon name="arrow" /></a>
+  </PageHead>
+  <section class="section section--paper">
+    <div class="wrap">
+      <ul class="cw">
+        {ways.map((w) => (
+          <li><a href={w.href}><Icon name={w.icon} /><h2>{w.t}</h2><p class={w.icon === 'whatsapp' ? '' : 'mono'}>{w.d}</p><span class="arrow">{w.cta}</span></a></li>
+        ))}
+      </ul>
+      <dl class="cw__hours mono">{site.hours.map((h) => <><dt>{h.days}</dt><dd>{h.time}</dd></>)}</dl>
+      <p class="muted">{site.afterHoursNote}</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .cw { list-style: none; padding: 0; margin: 0 0 2.5rem; display: grid; gap: 1rem; }
+  .cw a { display: grid; gap: 0.25rem; padding: 1.5rem; border: 1.5px solid var(--line-strong); border-radius: var(--radius-lg); color: var(--ink); text-decoration: none; background: var(--mist); }
+  .cw a:hover { border-color: var(--ink); }
+  .cw :global(svg) { width: 30px; color: var(--forest); margin-bottom: 0.75rem; }
+  .cw h2 { font-size: var(--step-2); margin: 0; }
+  .cw p { margin: 0 0 0.75rem; color: var(--text-muted); }
+  @media (min-width: 800px) { .cw { grid-template-columns: repeat(3, 1fr); } }
+  .cw__hours { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.5rem; font-size: 0.9rem; max-width: 22rem; }
+  .cw__hours dd { margin: 0; }
+</style>

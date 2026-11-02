@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Page not found | IMR Services" description="This page doesn't exist." noindex>
+  <PageHead label="Error 404 · Fail" title="That page has failed its test." lede="It may have moved when we rebuilt the site. Try one of these instead." crumbs={[{ name: 'Not found' }]}>
+    <p style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem"><a class="btn" href="/quote/">Get an instant price</a><a class="btn btn--ghost" href="/">Home</a><a class="btn btn--ghost" href="/pat-testing/">PAT testing</a></p>
+  </PageHead>
+</Base>
