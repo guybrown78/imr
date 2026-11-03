@@ -17,6 +17,11 @@ RewriteRule ^pat-testing\.html?$ /pat-testing/ [L,R=301,NC]
 RewriteRule ^about-us\.html?$ /about/ [L,R=301,NC]
 RewriteRule ^services\.html?$ /pat-testing/ [L,R=301,NC]
 RewriteRule ^contact-us\.html?$ /contact/ [L,R=301,NC]
+RewriteRule ^pat\.html?$ /pat-testing/ [L,R=301,NC]
+RewriteRule ^PATmiddlesbrough(/.*)?$ /pat-testing/middlesbrough/ [L,R=301,NC]
+RewriteRule ^PATteesside(/.*)?$ / [L,R=301,NC]
+RewriteRule ^PAT(/.*)?$ /pat-testing/ [L,R=301,NC]
+RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
 
 # Deploy bookkeeping file left by the FTPS upload; never serve it
 RewriteRule (^|/)\.ftp-deploy-sync-state\.json$ - [F,L]
