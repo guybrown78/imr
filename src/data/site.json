@@ -1,5 +1,5 @@
 {
-  "_readme": "Single source of truth for business and contact details. The phone number is stored once. tel: and WhatsApp links are derived from it in src/lib/site.ts and public/api/lib.php.",
+  "_readme": "Single source of truth for business and contact details. The phone number is stored once. tel: and WhatsApp links are derived from it in src/lib/site.ts.",
   "name": "IMR Services",
   "url": "https://imrservices.net",
   "phone": "07939 666650",

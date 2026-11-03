@@ -13,6 +13,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+    env:
+      SITE_PATH: ${{ vars.DEPLOY_PATH || 'public_html' }}   # static site
+      API_PATH: ${{ vars.API_PATH || 'imr-api' }}           # Node app root, outside the web root
+      SSH: ssh -p ${{ secrets.SSH_PORT || 22 }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,11 +44,41 @@ jobs:
         if: vars.DEPLOY_ENABLED == 'true'
         run: ssh-keyscan -p "${{ secrets.SSH_PORT || 22 }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
-      # --delete removes old files, but never touches certs, cPanel bits or the server-only config.
-      - name: Upload
+      # cPanel writes the Node app's Passenger block into .htaccess; keep a copy so the upload can't wipe it.
+      - name: Save cPanel Node.js config
+        if: vars.DEPLOY_ENABLED == 'true'
+        run: |
+          $SSH "blk=\$(sed -n '/PASSENGER CONFIGURATION BEGIN/,/PASSENGER CONFIGURATION END/p' $SITE_PATH/.htaccess 2>/dev/null); \
+                if [ -n \"\$blk\" ]; then printf '%s\n' \"\$blk\" > ~/.imr-passenger.htaccess; fi"
+
+      # --delete removes old files, but never touches certs, cPanel bits or the API route.
+      - name: Upload site
         if: vars.DEPLOY_ENABLED == 'true'
         run: |
           rsync -az --delete \
-            --exclude '.well-known/' --exclude 'cgi-bin/' --exclude 'staging.imrservices.net/' --exclude '.user.ini' --exclude 'error_log' \
+            --exclude '.well-known/' --exclude 'cgi-bin/' --exclude 'staging.imrservices.net/' --exclude '/api/' \
+            --exclude '.user.ini' --exclude 'error_log' \
             -e "ssh -p ${{ secrets.SSH_PORT || 22 }}" \
-            dist/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ vars.DEPLOY_PATH || 'public_html' }}/"
+            dist/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$SITE_PATH/"
+          $SSH "if [ -s ~/.imr-passenger.htaccess ]; then cat ~/.imr-passenger.htaccess $SITE_PATH/.htaccess > $SITE_PATH/.htaccess.tmp && mv $SITE_PATH/.htaccess.tmp $SITE_PATH/.htaccess; fi"
+
+      - name: Upload API
+        if: vars.DEPLOY_ENABLED == 'true'
+        run: |
+          rsync -az --delete \
+            --exclude 'node_modules' --exclude 'tmp/' --exclude '.env' --exclude '*.log' \
+            -e "ssh -p ${{ secrets.SSH_PORT || 22 }}" \
+            server/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$API_PATH/"
+
+      # Install packages inside cPanel's Node environment, then tell Passenger to restart the app.
+      - name: Install and restart API
+        if: vars.DEPLOY_ENABLED == 'true'
+        run: |
+          $SSH "set -e; cd ~/$API_PATH; \
+                act=\$(ls -d ~/nodevenv/$API_PATH/*/bin/activate 2>/dev/null | tail -1); \
+                if [ -z \"\$act\" ]; then echo 'No cPanel Node.js app found for ~/$API_PATH. Create it in Setup Node.js App first.'; exit 1; fi; \
+                . \"\$act\"; npm install --omit=dev --no-audit --no-fund; mkdir -p tmp; touch tmp/restart.txt"
+
+      - name: Check API is up
+        if: vars.DEPLOY_ENABLED == 'true' && github.ref_name == 'main'
+        run: curl -fsS --retry 5 --retry-delay 3 --retry-all-errors https://imrservices.net/api/health/

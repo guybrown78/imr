@@ -1,41 +1,18 @@
 import rules from '../data/pricing.json';
+import * as core from './quote-core.js';
 
-export type QuoteStatus = 'ok' | 'outside' | 'large' | 'invalid';
-export interface Quote {
-  status: QuoteStatus;
-  count: number;
-  price: number | null;
-  extraItems: number;
-}
+export type { Quote, QuoteStatus } from './quote-core.js';
+type Rules = typeof rules;
 
 export const pricing = rules;
-
-/** Pound formatting without pence when the amount is whole. */
-export const gbp = (n: number) =>
-  '£' + (Number.isInteger(n) ? n.toLocaleString('en-GB') : n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-
-export const normalisePostcode = (pc = '') => pc.toUpperCase().replace(/\s+/g, '');
+export const gbp = core.gbp;
+export const normalisePostcode = core.normalisePostcode;
 
 /** True when the postcode is in an area we price instantly (blank counts as in-area). */
-export function inCoveredArea(postcode = '', r = rules): boolean {
-  const pc = normalisePostcode(postcode);
-  if (!pc) return true;
-  return r.coveredPostcodePrefixes.some((p) => pc.startsWith(p) && /\d/.test(pc.charAt(p.length)));
-}
-
-export function priceFor(count: number, r = rules): number {
-  const extra = Math.max(0, count - r.itemsIncluded);
-  return r.minimumCharge + extra * r.perExtraItem;
-}
-
-export function calcQuote(count: number, postcode = '', r = rules): Quote {
-  const n = Math.floor(Number(count));
-  if (!Number.isFinite(n) || n < 1) return { status: 'invalid', count: 0, price: null, extraItems: 0 };
-  const extraItems = Math.max(0, n - r.itemsIncluded);
-  if (n > r.maxInstantItems) return { status: 'large', count: n, price: null, extraItems };
-  const price = priceFor(n, r);
-  return { status: inCoveredArea(postcode, r) ? 'ok' : 'outside', count: n, price, extraItems };
-}
+export const inCoveredArea = (postcode = '', r: Rules = rules) => core.inCoveredArea(postcode, r);
+export const priceFor = (count: number, r: Rules = rules) => core.priceFor(count, r);
+/** Same engine the quote API uses, so the browser and server always agree. */
+export const calcQuote = (count: number, postcode = '', r: Rules = rules) => core.calcQuote(count, postcode, r);
 
 /** "£40 covers your first 10 appliances, then £1 each" — used in copy everywhere. */
 export const priceLine = (r = rules) =>

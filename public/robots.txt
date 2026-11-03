@@ -1,6 +1,5 @@
 User-agent: *
 Disallow: /api/
-Disallow: /admin/
 Disallow: /thanks/
 
 Sitemap: https://imrservices.net/sitemap-index.xml

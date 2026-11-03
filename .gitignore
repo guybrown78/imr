@@ -3,7 +3,10 @@ dist/
 .astro/
 .DS_Store
 .env*
-imr-config.php
 imr_deploy*
 *.pem
 *.key
+server/shared/
+server/.env
+!.env.example
+!server/.env.example

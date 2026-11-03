@@ -1,5 +1,5 @@
 {
-  "_readme": "Single source of truth for pricing. Every price on the site, the calculator, the JSON-LD and the PHP quote API read from this file. Edit, commit, push to main.",
+  "_readme": "Single source of truth for pricing. Every price on the site, the calculator, the JSON-LD and the Node quote API (server/) read from this file. Edit, commit, push to main.",
   "currency": "GBP",
   "minimumCharge": 40,
   "itemsIncluded": 10,

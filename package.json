@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/build-api.mjs && astro build",
+    "build:api": "node scripts/build-api.mjs",
     "preview": "astro preview",
-    "test": "vitest run"
+    "api": "node scripts/build-api.mjs && node --env-file=server/.env server/app.js",
+    "test": "node scripts/build-api.mjs && vitest run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

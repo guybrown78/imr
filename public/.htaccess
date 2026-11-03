@@ -1,6 +1,6 @@
 # IMR Services – Apache config for HostPresto (cPanel / LiteSpeed-compatible)
 Options -Indexes
-DirectoryIndex index.html index.php
+DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
 RewriteEngine On
@@ -18,7 +18,8 @@ RewriteRule ^about-us\.html?$ /about/ [L,R=301,NC]
 RewriteRule ^services\.html?$ /pat-testing/ [L,R=301,NC]
 RewriteRule ^contact-us\.html?$ /contact/ [L,R=301,NC]
 
-# Trailing slash for directory pages
+# Trailing slash for directory pages (not the Node API under /api/)
+RewriteCond %{REQUEST_URI} !^/api(/|$)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(\.[a-z0-9]{2,5}|/)$ [NC]
 RewriteRule ^(.*)$ /$1/ [L,R=301]

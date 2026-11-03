@@ -2,7 +2,7 @@
 /**
  * Instant quote "tag". Pricing comes only from src/data/pricing.json via lib/pricing.
  * compact: a GET form that hands the count and postcode to /quote/.
- * full: the enquiry form that posts to /api/quote.php (progressive enhancement: works without JS).
+ * full: the enquiry form that posts to /api/quote/ (progressive enhancement: works without JS).
  */
 import Icon from './Icon.astro';
 import { calcQuote, gbp, pricing, vatNote } from '../lib/pricing';
@@ -20,7 +20,7 @@ const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { mont
   data-full={full ? '' : undefined}
   data-wa={phone.whatsapp}
   data-town={town}
-  action={full ? '/api/quote.php' : '/quote/'}
+  action={full ? '/api/quote/' : '/quote/'}
   method={full ? 'post' : 'get'}
   novalidate={full}
 >
@@ -184,7 +184,7 @@ const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { mont
       submit.dataset.label = submit.innerHTML;
       submit.textContent = 'Sending…';
       try {
-        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const res = await fetch(form.action, { method: 'POST', body: new URLSearchParams(new FormData(form) as any), headers: { Accept: 'application/json' } });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong.');
         form.querySelector('[data-ref]')!.textContent = data.ref;
