@@ -18,6 +18,9 @@ RewriteRule ^about-us\.html?$ /about/ [L,R=301,NC]
 RewriteRule ^services\.html?$ /pat-testing/ [L,R=301,NC]
 RewriteRule ^contact-us\.html?$ /contact/ [L,R=301,NC]
 
+# Deploy bookkeeping file left by the FTPS upload; never serve it
+RewriteRule (^|/)\.ftp-deploy-sync-state\.json$ - [F,L]
+
 # Trailing slash for directory pages (not the Node API under /api/)
 RewriteCond %{REQUEST_URI} !^/api(/|$)
 RewriteCond %{REQUEST_FILENAME} !-f

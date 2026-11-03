@@ -60,6 +60,15 @@ cPanel stores these values in `public_html/api/.htaccess`, next to the Passenger
    - Variable: `DEPLOY_ENABLED` = `true`. This is the launch switch. Until it's set, pushes only test and build, and nothing is uploaded.
 4. Delete the local private key once it's saved in GitHub.
 
+### 3b. FTPS instead of SSH (if the host blocks SSH from GitHub)
+HostPresto's firewall can drop SSH connections from GitHub's servers even though SSH works from home. The workflow can upload over encrypted FTP instead:
+
+1. cPanel **FTP Accounts**: create an account, e.g. `deploy@imrservices.net`, with a strong password. Set **Directory** to your home folder (clear the suggested `public_html/...` path), so it can reach both `public_html/` and `imr-api/`.
+2. GitHub secrets: `FTP_USER` (the full login, e.g. `deploy@imrservices.net`) and `FTP_PASS`. `FTP_HOST` is optional and defaults to `SSH_HOST`.
+3. GitHub variable: `DEPLOY_METHOD` = `ftps`. Remove it (or set `ssh`) to go back to SSH.
+
+Over FTPS the API's packages are installed by GitHub and uploaded as files, because there is no shell to run `npm install` on the server. The app restarts when `imr-api/tmp/restart.txt` is uploaded at the end. Only files the workflow uploaded are ever deleted, so old pages from the previous site stay until you remove them in File Manager. The 301 rules still redirect them.
+
 ### 4. Staging (optional)
 In cPanel, create a `staging.imrservices.net` subdomain. On a `staging` GitHub environment, set `DEPLOY_PATH` to that subdomain's folder. Pushing the `staging` branch then deploys there.
 Add `Header set X-Robots-Tag "noindex"` to that folder's `.htaccess` so Google ignores it.
