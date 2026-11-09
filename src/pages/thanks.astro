@@ -4,7 +4,7 @@ import PageHead from '../components/PageHead.astro';
 import { phone, waLink } from '../lib/site';
 ---
 <Base title="Thanks, we've got your request | IMR Services" description="Your PAT testing request has been received." noindex>
-  <PageHead label="Request received" title="Thanks, that's with us." lede="We'll be in touch the same working day to agree a date. A copy of your request has been emailed to you." crumbs={[{ name: 'Thanks' }]}>
+  <PageHead label="Request received" title="Thanks, that's with us." lede="We'll get back to you as soon as we can to agree a date. A copy of your request has been emailed to you." crumbs={[{ name: 'Thanks' }]}>
     <p style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem">
       <a class="btn" href={waLink('Hi IMR, I’ve just sent a booking request.')}>Chat on WhatsApp</a>
       <a class="btn btn--ghost" href={phone.tel}>{phone.display}</a>

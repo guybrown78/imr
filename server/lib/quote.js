@@ -84,7 +84,7 @@ export async function handleQuote(req, res) {
       text:
         `Hi ${name.split(' ')[0]},\n\nThanks for your PAT testing request. Your reference is ${ref}.\n\n` +
         `Appliances: ${count}\nPrice: ${priceText}\n\n` +
-        `We'll be in touch the same working day to agree a date. If you need us sooner, call or WhatsApp ${site.phone}.\n\n` +
+        `We'll get back to you as soon as we can to agree a date that suits you. If it's urgent, call or WhatsApp ${site.phone}.\n\n` +
         `${site.name}\n${site.url}\n`,
     }),
   ]);

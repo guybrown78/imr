@@ -93,7 +93,7 @@ const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { mont
         <input type="hidden" name="source" value={town ? `town:${town}` : 'quote'} />
         <p class="qt__error" data-error role="alert" hidden></p>
         <button class="btn btn--lg btn--block" type="submit" data-submit>Send my booking request <Icon name="arrow" /></button>
-        <p class="qt__small">We'll reply the same working day to agree a date. We only use your details to arrange this job. See our <a href="/privacy/">privacy notice</a>.</p>
+        <p class="qt__small">We'll get back to you to agree a date that suits you. We only use your details to arrange this job. See our <a href="/privacy/">privacy notice</a>.</p>
       </div>
     )}
   </div>
@@ -102,7 +102,7 @@ const updated = new Date(pricing.lastUpdated).toLocaleDateString('en-GB', { mont
     <div class="qt__done" data-done hidden tabindex="-1">
       <span class="stamp stamp--pass">Received</span>
       <h2>Thanks, that's with us.</h2>
-      <p>Your reference is <strong class="mono" data-ref>—</strong>. We'll be in touch the same working day to agree a date. A copy has been sent to your email.</p>
+      <p>Your reference is <strong class="mono" data-ref>—</strong>. We'll get back to you as soon as we can to agree a date. A copy has been sent to your email.</p>
       <div class="qt__done-actions">
         <a class="btn" data-wa-link href={phone.whatsapp}><Icon name="whatsapp" /> Chat on WhatsApp now</a>
         <a class="btn btn--ghost" href={phone.tel}><Icon name="phone" /> {phone.display}</a>
