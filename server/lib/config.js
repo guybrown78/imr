@@ -20,6 +20,8 @@ export const config = {
   db: {
     host: env.DB_HOST || 'localhost',
     port: Number(env.DB_PORT || 3306),
+    // Optional: connect through MySQL's local socket (e.g. /var/lib/mysql/mysql.sock) instead of TCP.
+    socketPath: env.DB_SOCKET || undefined,
     database: required('DB_NAME'),
     user: required('DB_USER'),
     password: required('DB_PASS'),
