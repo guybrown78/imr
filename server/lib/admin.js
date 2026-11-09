@@ -27,7 +27,7 @@ function inboxPage(rows) {
       (r) => `<tr><td>${h(when(r.created_at))}</td><td>${h(r.ref)}</td>
 <td>${h(r.name)}<br><small>${h(r.business)}</small></td>
 <td><a href="tel:${h(r.phone)}">${h(r.phone)}</a><br><a href="mailto:${h(r.email)}">${h(r.email)}</a></td>
-<td>${Number(r.appliances)}</td><td>${h(r.quoted_price === null ? 'TBC' : gbp(Number(r.quoted_price)))}<br><small>${h(r.quote_status)}</small></td>
+${r.quote_status === 'message' ? `<td colspan="2"><strong class="msg">Message</strong></td>` : `<td>${Number(r.appliances)}</td><td>${h(r.quoted_price === null ? 'TBC' : gbp(Number(r.quoted_price)))}<br><small>${h(r.quote_status)}</small></td>`}
 <td>${h(r.postcode)}</td><td>${h(r.preferred)}</td><td>${h(r.message).replace(/\n/g, '<br>')}</td></tr>`,
     )
     .join('');
@@ -35,7 +35,7 @@ function inboxPage(rows) {
     `IMR inbox (${rows.length})`,
     `<p><strong>Enquiries</strong> · latest ${rows.length} · <a href="${PATH}/logout/">Sign out</a></p>
 <div class="wrap"><table><tr><th>When</th><th>Ref</th><th>Name / business</th><th>Contact</th><th>Items</th><th>Price</th><th>Postcode</th><th>When suits</th><th>Message</th></tr>${tr}</table></div>`,
-    'body{font:14px system-ui;background:#F3FAF6;color:#0B1F16;margin:0;padding:1rem}table{border-collapse:collapse;width:100%;background:#fff}th,td{text-align:left;padding:.5rem;border-bottom:1px solid #d4e6dc;vertical-align:top}th{font:12px ui-monospace,monospace;text-transform:uppercase;color:#0B5D3B}.wrap{overflow-x:auto}a{color:#0B5D3B}',
+    'body{font:14px system-ui;background:#F3FAF6;color:#0B1F16;margin:0;padding:1rem}table{border-collapse:collapse;width:100%;background:#fff}th,td{text-align:left;padding:.5rem;border-bottom:1px solid #d4e6dc;vertical-align:top}th{font:12px ui-monospace,monospace;text-transform:uppercase;color:#0B5D3B}.wrap{overflow-x:auto}a{color:#0B5D3B}.msg{background:#FFE9A8;padding:.15rem .4rem;border-radius:4px;font-size:12px}',
   );
 }
 

@@ -8,6 +8,6 @@ export default defineConfig({
   // In dev, the quote form talks to the local Node API (npm run api).
   vite: { server: { proxy: { '/api': 'http://localhost:8787' } } },
   integrations: [
-    sitemap({ filter: (page) => !page.includes('/thanks/') }),
+    sitemap({ filter: (page) => !page.includes('/thanks/') && !page.includes('/message-sent/') }),
   ],
 });

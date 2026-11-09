@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { site, phone, waLink, mailto } from '../lib/site';
 import { breadcrumbSchema } from '../lib/schema';
 const ways = [
@@ -11,7 +12,7 @@ const ways = [
 ] as const;
 ---
 <Base title="Contact IMR Services | PAT Testing Teesside" description={`Call ${phone.display}, WhatsApp or email ${site.email} for PAT testing across Teesside. Or get an instant price online.`} schema={[breadcrumbSchema([{ name: 'Contact', href: '/contact/' }])]}>
-  <PageHead label="Contact" title="Talk to a real person." lede="Get an instant price online, or message us however suits you. We'll get back to you as soon as we can." crumbs={[{ name: 'Contact' }]}>
+  <PageHead label="Contact" title="Talk to a real person." lede="Get an instant price online, send us a message below, or get in touch however suits you. We'll get back to you as soon as we can." crumbs={[{ name: 'Contact' }]}>
     <a class="btn btn--lg" style="margin-top:1rem" href="/quote/">Get an instant price <Icon name="arrow" /></a>
   </PageHead>
   <section class="section section--paper">
@@ -21,8 +22,15 @@ const ways = [
           <li><a href={w.href}><Icon name={w.icon} /><h2>{w.t}</h2><p class={w.icon === 'whatsapp' ? '' : 'mono'}>{w.d}</p><span class="arrow">{w.cta}</span></a></li>
         ))}
       </ul>
-      <dl class="cw__hours mono">{site.hours.map((h) => <><dt>{h.days}</dt><dd>{h.time}</dd></>)}</dl>
-      <p class="muted">{site.afterHoursNote}</p>
+      <div class="cw__msg" id="message">
+        <div>
+          <h2>Send us a message</h2>
+          <p class="muted">Got a question, or not sure what you need? Drop us a line here and we'll get back to you. Want a price? The <a href="/quote/">instant quote</a> is quicker.</p>
+          <dl class="cw__hours mono">{site.hours.map((h) => <><dt>{h.days}</dt><dd>{h.time}</dd></>)}</dl>
+          <p class="muted">{site.afterHoursNote}</p>
+        </div>
+        <ContactForm />
+      </div>
     </div>
   </section>
 </Base>
@@ -36,4 +44,7 @@ const ways = [
   @media (min-width: 800px) { .cw { grid-template-columns: repeat(3, 1fr); } }
   .cw__hours { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.5rem; font-size: 0.9rem; max-width: 22rem; }
   .cw__hours dd { margin: 0; }
+  .cw__msg { display: grid; gap: 1.5rem; scroll-margin-top: 6rem; }
+  .cw__msg h2 { font-size: var(--step-3); margin: 0 0 0.5rem; }
+  @media (min-width: 900px) { .cw__msg { grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; } }
 </style>

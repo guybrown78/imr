@@ -1,0 +1,94 @@
+---
+/**
+ * General "send us a message" form. Posts to /api/contact/ (progressive enhancement: works without JS,
+ * falling back to /message-sent/). Pricing questions are better served by the quote form.
+ */
+import Icon from './Icon.astro';
+import { phone } from '../lib/site';
+---
+<form class="cf" data-contact action="/api/contact/" method="post" novalidate>
+  <div class="cf__body" data-body>
+    <div class="cf__grid">
+      <label class="cf__field"><span>Your name</span><input name="name" autocomplete="name" required maxlength="80" /></label>
+      <label class="cf__field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="120" /></label>
+      <label class="cf__field cf__wide"><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" /></label>
+      <label class="cf__field cf__wide"><span>Your message</span><textarea name="message" rows="6" required minlength="2" maxlength="3000"></textarea></label>
+    </div>
+    <div class="cf__hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+    <input type="hidden" name="ts" value="" />
+    <p class="cf__error" data-error role="alert" hidden></p>
+    <button class="btn btn--lg" type="submit" data-submit>Send message <Icon name="arrow" /></button>
+    <p class="cf__small">We'll get back to you as soon as we can. We only use your details to reply. See our <a href="/privacy/">privacy notice</a>.</p>
+  </div>
+
+  <div class="cf__done" data-done hidden tabindex="-1">
+    <span class="stamp stamp--pass">Sent</span>
+    <h3>Thanks, we've got your message.</h3>
+    <p>Your reference is <strong class="mono" data-ref>—</strong>. We'll get back to you as soon as we can, and a copy is on its way to your inbox.</p>
+    <p class="cf__small">If it's urgent, call or WhatsApp <a href={phone.tel}>{phone.display}</a>.</p>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-contact]').forEach((form) => {
+    const err = form.querySelector<HTMLElement>('[data-error]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const ts = form.querySelector<HTMLInputElement>('input[name=ts]')!;
+    ts.value = String(Date.now());
+
+    // No-JS fallback came back with an error.
+    if (new URLSearchParams(location.search).has('error')) {
+      err.textContent = 'Something went wrong sending that. Please try again, or call or WhatsApp us.';
+      err.hidden = false;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      const bad = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]')].find((i) => !i.value.trim() || !i.checkValidity());
+      if (bad) {
+        err.textContent = bad.type === 'email' && bad.value ? 'Please check your email address.' : 'Please fill in your name, email and message.';
+        err.hidden = false;
+        bad.focus();
+        return;
+      }
+      submit.disabled = true;
+      submit.dataset.label = submit.innerHTML;
+      submit.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new URLSearchParams(new FormData(form) as any), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong.');
+        form.querySelector('[data-ref]')!.textContent = data.ref;
+        form.querySelector<HTMLElement>('[data-body]')!.hidden = true;
+        const done = form.querySelector<HTMLElement>('[data-done]')!;
+        done.hidden = false;
+        done.focus();
+      } catch (x) {
+        err.textContent = `${(x as Error).message} You can also call or WhatsApp us.`;
+        err.hidden = false;
+        submit.disabled = false;
+        submit.innerHTML = submit.dataset.label!;
+      }
+    });
+  });
+</script>
+
+<style>
+  .cf { position: relative; background: #fff; border: 1.5px solid var(--line-strong); border-radius: var(--radius-lg); padding: clamp(1.1rem, 4vw, 1.75rem); }
+  .cf__grid { display: grid; gap: 0.9rem; margin-bottom: 1.25rem; }
+  @media (min-width: 560px) { .cf__grid { grid-template-columns: 1fr 1fr; } .cf__wide { grid-column: 1 / -1; } }
+  .cf__field { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; }
+  .cf__field em { font-style: normal; font-weight: 400; color: var(--text-muted); }
+  .cf__field input, .cf__field textarea {
+    font: 400 1rem/1.4 var(--display); color: var(--ink); background: #fff; width: 100%;
+    border: 1.5px solid var(--line-strong); border-radius: 8px; padding: 0.75rem 0.85rem; min-height: 48px;
+  }
+  .cf__field textarea { resize: vertical; }
+  .cf__field input:focus, .cf__field textarea:focus { outline: none; border-color: var(--forest); box-shadow: 0 0 0 3px var(--mint); }
+  .cf__hp { position: absolute; left: -9999px; }
+  .cf__error { background: #fdecea; color: var(--fail); padding: 0.7rem 0.85rem; border-radius: 8px; font-weight: 600; font-size: 0.92rem; }
+  .cf__small { font-size: 0.82rem; color: var(--text-muted); margin: 0.85rem 0 0; }
+  .cf__done h3 { font-size: var(--step-2); margin: 1rem 0 0.5rem; }
+  .cf__done:focus { outline: none; }
+</style>

@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { phone } from '../lib/site';
+---
+<Base title="Thanks, we've got your message | IMR Services" description="Your message has been received." noindex>
+  <PageHead label="Message sent" title="Thanks, we've got your message." lede="We'll get back to you as soon as we can. A copy of your message has been emailed to you." crumbs={[{ name: 'Contact', href: '/contact/' }, { name: 'Message sent' }]}>
+    <p style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem">
+      <a class="btn" href="/">Back to the homepage</a>
+      <a class="btn btn--ghost" href={phone.tel}>{phone.display}</a>
+    </p>
+  </PageHead>
+</Base>
